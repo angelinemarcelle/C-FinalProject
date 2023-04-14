@@ -19,66 +19,66 @@ public:
         return rank_; //getter
     }
 
-    string to_string() const {
-        string suit_str;
-        string rank_str;
+    string display() const { //display function
+        string suit;
+        string rank;
         switch (suit_) {
             case HEARTS:
-                suit_str = "HEARTS";
+                suit = "HEARTS";
                 break;
             case DIAMONDS:
-                suit_str = "DIAMONDS";
+                suit = "DIAMONDS";
                 break;
             case CLUBS:
-                suit_str = "CLUBS";
+                suit = "CLUBS";
                 break;
             case SPADES:
-                suit_str = "SPADES";
+                suit = "SPADES";
                 break;
         }
         
         switch (rank_) {
             case TWO:
-                rank_str = "2 (dee)";
+                rank = "2 (dee)";
                 break;
             case THREE:
-                rank_str = "3";
+                rank = "3";
                 break;
             case FOUR:
-                rank_str = "4";
+                rank = "4";
                 break;
             case FIVE:
-                rank_str = "5";
+                rank = "5";
                 break;
             case SIX:
-                rank_str = "6";
+                rank = "6";
                 break;
             case SEVEN:
-                rank_str = "7";
+                rank = "7";
                 break;
             case EIGHT:
-                rank_str = "8";
+                rank = "8";
                 break;
             case NINE:
-                rank_str = "9";
+                rank = "9";
                 break;
             case TEN:
-                rank_str = "10";
+                rank = "10";
                 break;
             case JACK:
-                rank_str = "J";
+                rank = "J";
                 break;
             case QUEEN:
-                rank_str = "Q";
+                rank = "Q";
                 break;
             case KING:
-                rank_str = "K";
+                rank = "K";
                 break;
             case ACE:
-                rank_str = "A";
+                rank = "A";
                 break;
         }
-        return rank_str + "(" + suit_str + ")";
+        return rank + "(" + suit + ")";
     }
 
 private:
