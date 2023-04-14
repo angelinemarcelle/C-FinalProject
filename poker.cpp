@@ -11,11 +11,11 @@ public:
     Card(int suit, int rank)
             : suit_(suit), rank_(rank) {} //constructor
 
-    int get_suit() const {
+    int get_suit() {
         return suit_; //getter
     } 
 
-    int get_rank() const {
+    int get_rank() {
         return rank_; //getter
     }
 
