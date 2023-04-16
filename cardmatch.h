@@ -1,5 +1,5 @@
-#ifndef DEFAULT_H
-#define DEFAULT_H
+#ifndef CARDMATCH_H
+#define CARDMATCH_H
 
 #include <algorithm>
 #include <iostream>
