@@ -1,12 +1,3 @@
-#include <algorithm>
-#include <iostream>
-#include <random>
-#include <string>
-#include <vector>
-#include <thread>
-#include <chrono>
-#include <cstdlib>
-
 using namespace std;
 
 void printBoard(const vector<vector<string>>& board,
