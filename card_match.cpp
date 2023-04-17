@@ -28,7 +28,7 @@ void printBoard(const vector<vector<string>>& board,
     }
 }
 
-int main() {
+int playCardMatch() {
     // setting the variable for size
     int board_size;
     cout << "Choose the size of the board (4 or 6): ";
