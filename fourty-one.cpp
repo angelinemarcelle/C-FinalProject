@@ -109,37 +109,3 @@ void takeCard(vector<Card> &hand, vector<Card> &deck) {
     return;
   }
 
-  cout << "Choose a card index to discard (0-3): ";
-  cin >> discardIdx;
-
-  Card discardedCard = hand[discardIdx];
-  hand[discardIdx] = newCard;
-  // Remove the card from the deck as well
-  deck.push_back(discardedCard);
-
-  cout << "Discarded card: ";
-  printHand(vector<Card>{discardedCard});
-
-  sort(hand.begin(), hand.end(), [](Card a, Card b) {
-    int aValue =
-        a.face == "A"
-            ? 14
-            : (a.face == "J"
-                   ? 11
-                   : (a.face == "Q" ? 12
-                                    : (a.face == "K" ? 13 : stoi(a.face))));
-    int bValue =
-        b.face == "A"
-            ? 14
-            : (b.face == "J"
-                   ? 11
-                   : (b.face == "Q" ? 12
-                                    : (b.face == "K" ? 13 : stoi(b.face))));
-    return aValue < bValue;
-  });
-
-  cout << "Updated hand: ";
-  printHand(hand);
-
-  cout << endl << endl;
-}
