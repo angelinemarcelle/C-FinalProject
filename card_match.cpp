@@ -1,3 +1,4 @@
+#include 'cardmatch.h'
 using namespace std;
 
 void printBoard(const vector<vector<string>>& board,
