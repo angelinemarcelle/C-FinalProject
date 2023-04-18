@@ -28,7 +28,7 @@ int casino() {
                 continue;
             }
             if (userInput.length() >1 || userInput<"1" || userInput>"4"){
-                cout << "Cannot be smaller than 1, bigger than 4 or alphabet (1-4) :\n";
+                cout << "Cannot be smaller than 1, bigger than 4 or alphabet (1-4)! Please input again :\n";
                 continue;
             }
             num_players = stoi(userInput);
