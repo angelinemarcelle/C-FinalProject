@@ -72,9 +72,13 @@ int main() {
     cin >> game.board_size;
     auto board = createBoard(game.board_size); // creating board 
     vector<vector<bool>> revealed(game.board_size, vector<bool>(game.board_size));
+    
+    // adding a winner condition (if all the paris are found)
+    int matches_found = 0;
+    int total_pairs = (game.board_size * game.board_size) / 2;
 
-     while (true) {  // game loop
-        if (game.first_turn) {
+    while (true) {  // game loop
+    	if (game.first_turn) {
             printBoard(board, revealed, true);
             game.first_turn = false;
             cout << "Memorise the picture of the board for 5 seconds" << endl;
@@ -88,16 +92,28 @@ int main() {
 		cout << "Choose two cells to reveal (1-" << game.board_size * game.board_size << "): ";
 		cin >> cell1 >> cell2;
 	     	system("clear"); // clearing the screen for better play 
-        
-		if (cell1 == cell2) { // Check if the user has chosen the same cell twice
-			cout << "You cannot choose the same cell twice. Try again.\n";
+	    
+	    	// Check if the user has chosen the same cell twice
+		if (cin.fail()) {
+			cout << "You have inputted an invalid input\n";
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			continue;
+		} 
+	    	
+		int row1 = (cell1 - 1) / game.board_size; // Convert cell numbers to board indices
+		int col1 = (cell1 - 1) % game.board_size;
+		int row2 = (cell2 - 1) / game.board_size;
+		int col2 = (cell2 - 1) % game.board_size;
+
+		if (cell1 == cell2) {
+			cout << "You cannot choose the same cell twice. Try again.\n";   
+			continue;
+		} 
+		else if (revealed[row1][col1] || revealed[row2][col2]) {
+			cout << "You have already chosen that cell previously\n";
 			continue;
 		}
-
-		int row1 = (cell1 - 1) / game.board_size; // Convert cell numbers to board indices
-        	int col1 = (cell1 - 1) % game.board_size;
-        	int row2 = (cell2 - 1) / game.board_size;
-        	int col2 = (cell2 - 1) % game.board_size;
 
 		revealed[row1][col1] = true; // Reveal the cells
 		revealed[row2][col2] = true;
@@ -110,7 +126,11 @@ int main() {
 		} 
 		else {
 			printBoard(board, revealed);
+			matches_found++;
 			cout << "Match found!\n";
+			if (matches_found == total_pairs) { // winning condition 
+				cout << "You won!\n";
+				break; } 
 		}
 	}
 }
