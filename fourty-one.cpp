@@ -121,20 +121,31 @@ cout << "Choose a card index to discard (0-3): ";
   printHand(vector<Card>{discardedCard});
 
   sort(hand.begin(), hand.end(), [](Card a, Card b) {
-    int aValue =
-        a.face == "A"
-            ? 14
-            : (a.face == "J"
-                   ? 11
-                   : (a.face == "Q" ? 12
-                                    : (a.face == "K" ? 13 : stoi(a.face))));
-    int bValue =
-        b.face == "A"
-            ? 14
-            : (b.face == "J"
-                   ? 11
-                   : (b.face == "Q" ? 12
-                                    : (b.face == "K" ? 13 : stoi(b.face))));
+    int aValue;
+      if (a.face == "A") {
+          aValue = 14;
+      } else if (a.face == "J") {
+          aValue = 11;
+      } else if (a.face == "Q") {
+          aValue = 12;
+      } else if (a.face == "K") {
+          aValue = 13;
+      } else {
+          aValue = stoi(a.face);
+      }
+
+    int bValue;
+      if (b.face == "A") {
+          bValue = 14;
+      } else if (b.face == "J") {
+          bValue = 11;
+      } else if (b.face == "Q") {
+          bValue = 12;
+      } else if (b.face == "K") {
+          bValue = 13;
+      } else {
+          bValue = stoi(b.face);
+      }
     return aValue < bValue;
   });
 
@@ -217,6 +228,6 @@ int main() {
   }
   int winner = getWinner(hands);
   cout << "Player " << winner + 1 << " wins!" << endl;
-
+  cout << "Try next game!" << endl;
   return 0;
 }
