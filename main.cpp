@@ -29,16 +29,16 @@ int main() {
                 break;
             case 3:
                     // view leaderboard
-              cout << "Leaderboard:" << std::endl;
+              cout << "Leaderboard:" << endl;
               for (int i = 0; i < 4; i++) {
-                  cout << "Player " << i + 1 << ": " << scores[i] << std::endl;
+                  cout << "Player " << i + 1 << ": " << scores[i] << endl;
               }
                 break;
             case 4:
                 exit = true;
                 break;
             default:
-                cout << "Invalid choice. Please try again." << std::endl;
+                cout << "Invalid choice. Please try again." << endl;
                 break;
         }
     }
