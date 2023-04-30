@@ -11,6 +11,16 @@ struct Card {
   string suit; // "H", "D", "S", "C"
 };
 
+void deal(vector<Card> &hand, vector<Card> &deck, int numCards);
+int getCardValue(Card c);
+int getHandValue(const vector<Card> &hand);
+void printHand(const vector<Card> &hand);
+void printScore(const vector<Card> &hand);
+void takeCard(vector<Card> &hand, vector<Card> &deck);
+bool gameOver(vector<vector<Card>> &hands, vector<Card> &deck);
+int getWinner(vector<vector<Card>> &hands);
+int main();
+
 void deal(vector<Card> &hand, vector<Card> &deck, int numCards) {
   random_device rd;  // obtain a random seed from the system
   mt19937 gen(rd()); // seed the generator
