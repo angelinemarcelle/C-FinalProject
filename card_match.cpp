@@ -26,6 +26,7 @@ void Board::play() { // moved this from main function to void play() for better 
             cout << "Do not press any key while this screen is on!" << endl;
             this_thread::sleep_for(chrono::seconds(5));
             system("clear");
+            cout << "From now on, your play time will be recorded!" << endl;
             print();
         } else {
             print();
@@ -59,22 +60,22 @@ void Board::play() { // moved this from main function to void play() for better 
         revealed[row2][col2] = true;
 
         if (board[row1][col1] != board[row2][col2]) { // Check if the cells match
-            system("clear"); // added system("clear") so that the player has a clear screen
-			print(false);
-			cout << "No match. Try again.\n" << endl;
-			revealed[row1][col1] = false;
-			revealed[row2][col2] = false;
+		system("clear"); // added system("clear") so that the player has a clear screen
+		print(false);
+		cout << "No match. Try again.\n" << endl;
+		revealed[row1][col1] = false;
+		revealed[row2][col2] = false;
 		} 
 		else {
-            system("clear");
+			system("clear");
 			print();
 			matches_found++;
 			cout << "Match found!\n";
 			if (matches_found == total_pairs) { // winning condition 
 				auto end_time = chrono::steady_clock::now(); // record end time
-                		auto duration = chrono::duration_cast<chrono::seconds>(end_time - start_time); // calculate duration
+				auto duration = chrono::duration_cast<chrono::seconds>(end_time - start_time); // calculate duration
 				cout << "You won!\n";
-                		cout << "You won in " << duration.count() << " seconds!\n";
+				cout << "You won in " << duration.count() << " seconds!\n";
 				break; } 
         }
     }
@@ -108,7 +109,7 @@ vector<vector<string>> Board::createBoard(int board_size) {
     }
 
     shuffle(list.begin(), list.end(), mt19937{random_device{}()}); // shuffling the elements
-
+	
     vector<vector<string>> board(board_size, vector<string>(board_size)); // vector settings
 
     int index = 0; // Initializing the board
