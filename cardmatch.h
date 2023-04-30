@@ -10,5 +10,6 @@
 #include <chrono>
 #include <cstdlib>
 #include <iomanip>
+#include <chrono> // added for play time calculation
 
 #endif
