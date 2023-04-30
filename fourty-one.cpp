@@ -216,7 +216,7 @@ int Game::getWinner(vector<vector<Card>> &hands) {
 }
 
 void Game::play() {
-    int numPlayers = 4;
+    const int numPlayers = 4;
     char reaction;
     createDeck();
     vector<vector<Card>> hands(numPlayers);
