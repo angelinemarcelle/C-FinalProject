@@ -7,21 +7,55 @@
 using namespace std;
 
 struct Card {
-  string face; // "A", "2"-"10", "J", "Q", "K"
-  string suit; // "H", "D", "S", "C"
+    string face; // "A", "2"-"10", "J", "Q", "K"
+    string suit; // "H", "D", "S", "C"
 };
 
-void deal(vector<Card> &hand, vector<Card> &deck, int numCards);
-int getCardValue(Card c);
-int getHandValue(const vector<Card> &hand);
-void printHand(const vector<Card> &hand);
-void printScore(const vector<Card> &hand);
-void takeCard(vector<Card> &hand, vector<Card> &deck);
-bool gameOver(vector<vector<Card>> &hands, vector<Card> &deck);
-int getWinner(vector<vector<Card>> &hands);
-int main();
+class Game {
+public:
+    void createDeck();
+    void deal(vector<Card> &hand, vector<Card> &deck, int numCards);
+    int getCardValue(Card c);
+    int getHandValue(const vector<Card> &hand);
+    void printHand(const vector<Card> &hand);
+    void printScore(const vector<Card> &hand);
+    void takeCard(vector<Card> &hand, vector<Card> &deck);
+    bool gameOver(vector<vector<Card>> &hands, vector<Card> &deck);
+    int getWinner(vector<vector<Card>> &hands);
+    void play();
+private:
+    vector<Card> deck;
+};
 
-void deal(vector<Card> &hand, vector<Card> &deck, int numCards) {
+
+void Game::createDeck() {
+    for (int s = 0; s < 4; s++) {
+        for (int v = 2; v <= 14; v++) {
+            Card c;
+            if (v == 11)
+                c.face = "J";
+            else if (v == 12)
+                c.face = "Q";
+            else if (v == 13)
+                c.face = "K";
+            else if (v == 14)
+                c.face = "A";
+            else
+                c.face = to_string(v);
+            if (s == 0)
+                c.suit = "H";
+            else if (s == 1)
+                c.suit = "D";
+            else if (s == 2)
+                c.suit = "S";
+            else
+                c.suit = "C";
+            deck.push_back(c);
+        }
+    }
+}
+
+void Game::deal(vector<Card> &hand, vector<Card> &deck, int numCards) {
   random_device rd;  // obtain a random seed from the system
   mt19937 gen(rd()); // seed the generator
   for (int i = 0; i < numCards; i++) {
@@ -50,7 +84,7 @@ void deal(vector<Card> &hand, vector<Card> &deck, int numCards) {
   });
 }
 
-int getCardValue(Card c) {
+int Game::getCardValue(Card c) {
   if (c.face == "A")
     return 11;
   else if (c.face == "J" || c.face == "Q" || c.face == "K")
@@ -59,7 +93,7 @@ int getCardValue(Card c) {
     return stoi(c.face);
 }
 
-int getHandValue(const vector<Card> &hand) {
+int Game::getHandValue(const vector<Card> &hand) {
   int value = 0;
   for (const Card &c : hand) {
       value += getCardValue(c);
@@ -67,19 +101,19 @@ int getHandValue(const vector<Card> &hand) {
   return value;
 }
 
-void printHand(const vector<Card> &hand) {
+void Game::printHand(const vector<Card> &hand) {
   for (const auto &card : hand) {
     cout << card.face << card.suit << " ";
   }
   cout << endl;
 }
 
-void printScore(const vector<Card> &hand) {
+void Game::printScore(const vector<Card> &hand) {
     int handValue = getHandValue(hand);
     cout << "Current score: " << handValue << endl;
 }
 
-void takeCard(vector<Card> &hand, vector<Card> &deck) {
+void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
   cout << "Your hand: ";
   printHand(hand);
   printScore(hand);
@@ -160,7 +194,7 @@ void takeCard(vector<Card> &hand, vector<Card> &deck) {
   cout << endl << endl;
 }
 
-bool gameOver(vector<vector<Card>> &hands, vector<Card> &deck) {
+bool Game::gameOver(vector<vector<Card>> &hands, vector<Card> &deck) {
   for (auto hand : hands) {
     if (getHandValue(hand) == 41)
       return true;
@@ -168,7 +202,7 @@ bool gameOver(vector<vector<Card>> &hands, vector<Card> &deck) {
   return deck.empty();
 }
 
-int getWinner(vector<vector<Card>> &hands) {
+int Game::getWinner(vector<vector<Card>> &hands) {
   int winnerIdx = -1;
   int highest = 0;
   for (int i = 0; i < hands.size(); i++) {
@@ -181,9 +215,7 @@ int getWinner(vector<vector<Card>> &hands) {
   return winnerIdx;
 }
 
-int main() {
-  srand(time(nullptr));
-
+void Game::play() {
   int numPlayers;
   do {
     cout << "How many players? (4-6): ";
@@ -193,33 +225,8 @@ int main() {
            << endl;
     }
   } while (numPlayers < 4 || numPlayers > 6);
-
-  vector<Card> deck;
-  for (int s = 0; s < 4; s++) {
-    for (int v = 2; v <= 14; v++) {
-      Card c;
-      if (v == 11)
-        c.face = "J";
-      else if (v == 12)
-        c.face = "Q";
-      else if (v == 13)
-        c.face = "K";
-      else if (v == 14)
-        c.face = "A";
-      else
-        c.face = to_string(v);
-      if (s == 0)
-        c.suit = "H";
-      else if (s == 1)
-        c.suit = "D";
-      else if (s == 2)
-        c.suit = "S";
-      else
-        c.suit = "C";
-      deck.push_back(c);
-    }
-  }
-
+  
+  createDeck();
   vector<vector<Card>> hands(numPlayers);
   for (auto &hand : hands) {
     deal(hand, deck, 4);
@@ -235,4 +242,13 @@ int main() {
   cout << "Player " << winner + 1 << " wins!" << endl;
 
   return 0;
+}
+
+int main() {
+    srand(time(nullptr));
+
+    Game game;
+    game.play();
+
+    return 0;
 }
