@@ -16,6 +16,7 @@ public:
 void Board::play() { // moved this from main function to void play() for better organisation
     int matches_found = 0;
     int total_pairs = (board_size * board_size) / 2;
+    auto start_time = chrono::steady_clock::now(); // start timing
 
     while (true) { // game loop 
         if (first_turn) {
@@ -70,7 +71,10 @@ void Board::play() { // moved this from main function to void play() for better 
 			matches_found++;
 			cout << "Match found!\n";
 			if (matches_found == total_pairs) { // winning condition 
+				auto end_time = chrono::steady_clock::now(); // record end time
+                		auto duration = chrono::duration_cast<chrono::seconds>(end_time - start_time); // calculate duration
 				cout << "You won!\n";
+                		cout << "You won in " << duration.count() << " seconds!\n";
 				break; } 
         }
     }
