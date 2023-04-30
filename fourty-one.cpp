@@ -216,21 +216,13 @@ int Game::getWinner(vector<vector<Card>> &hands) {
 }
 
 void Game::play() {
-  int numPlayers;
-  do {
-    cout << "How many players? (4-6): ";
-    cin >> numPlayers;
-    if (numPlayers < 4 || numPlayers > 6) {
-      cout << "Invalid number of players! Please input a number between 4-6."
-           << endl;
+    int numPlayers = 4;
+    char reaction;
+    createDeck();
+    vector<vector<Card>> hands(numPlayers);
+    for (auto &hand : hands) {
+        deal(hand, deck, 4);
     }
-  } while (numPlayers < 4 || numPlayers > 6);
-  
-  createDeck();
-  vector<vector<Card>> hands(numPlayers);
-  for (auto &hand : hands) {
-    deal(hand, deck, 4);
-  }
 
   int currentPlayer = 0;
   while (!gameOver(hands, deck)) {
@@ -248,7 +240,16 @@ int main() {
     srand(time(nullptr));
 
     Game game;
-    game.play();
-
-    return 0;
+    while (true) {
+      cout << "Welcome to the Exciting 4-Player Card Game!, ready (y/n)";
+      char reaction;
+      cin >> reaction;
+      if (reaction != 'y') {
+          break;
+        }
+      else {
+        game.play();
+      }
+      return 0;
+    }
 }
