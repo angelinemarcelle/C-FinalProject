@@ -1,64 +1,62 @@
 #include <iostream>
-#include <string>
+#include "cardmatch.h"
 using namespace std;
 
 // Include the game functions here
-void playCardMatchingGame();
-void playMemoryGame();
-void playSimpleCardGame();
+int playCardMatchingGame();
+int playMemoryGame();
+int playSimpleCardGame();
 
-int casino() {
-    int num_players;
-    int coins = 1000; //num of coins to begin with (shared, one account only)
-    bool valid = false;
-    bool quit = false;
-    while (coins > 0 && !quit){
-        if (coins == 1000){
-            cout << "Welcome to the casino! Please choose a game to play:\n";
-        } else{
-            cout << "Welcome again! Please choose a game to play for another round\nor (q) to discontinue\nor (c) to check remaining coins:\n";
-        }
-        cout << "1. Card Matching Game\n";
-        cout << "2. Memory Game\n";
-        cout << "3. Simple Card Game\n";
-        valid = false;
-        string userInput;
-        while(!valid){
-            cin >> userInput;
-            if (userInput == "q" || userInput == "Q" || userInput == "quit" || userInput == "Quit"){
-                cout<<"Thanks for playing. Your remaining coins: "<<coins<<endl;
-                quit = true;
-                break;
-            }
-            if (userInput == "c" || userInput == "C" || userInput == "check" || userInput == "Check"){
-                cout<<"Your remaining coins: "<<coins<<endl;
-                cout<<"Please choose a game to play for another round\nor (q) to discontinue\nor (c) to check remaining coins:\n";
-                continue;
-            }
-            if (userInput.length() >1 || userInput<"1" || userInput>"3"){
-                cout << "Invalid input! Please choose a game (1-3):\n";
-                continue;
-            }
-            int game_choice = stoi(userInput);
-            if (game_choice >= 1 && game_choice <= 3) {
-                valid = true;
-            } else {
-                cout << "Invalid input! Please choose a game (1-3):\n";
-            }
-        }
-        coins--; // Deduct coins for playing a game
-
-        switch (stoi(userInput)) {
+void casino() {
+    int choice;
+    bool exit = false;
+    int scores[4] = {0, 0, 0, 0}; // players score
+    int currentPlayer = 0;
+    
+    while (!exit) {
+        cout << "🅲🅰🆁🅳 🅲🅰🆂🅸🅽🅾" << endl;
+        cout << "Welcome to Card Casino!" << endl;
+        cout << "1. Play single player (Card Match) " << endl;
+        cout << "2. Play together (Memory Game): " << endl;
+        cout << "3. Play Simple Card Game" << endl;
+        cout << "4. View leaderboard" << endl;
+        cout << "5. Exit" << endl;
+        cout << "Enter your choice (1-5) : ";
+        cin >> choice;
+        switch (choice) {
             case 1:
-                playCardMatchingGame();
+                // start game 1
+                cout << "Which player is playing? (1-4): ";
+                cin >> currentPlayer;
+                currentPlayer -= 1; // Adjusting the index to be 0-based
+                scores[currentPlayer] += playCardMatchingGame(); // add the score to current player playing
                 break;
             case 2:
-                playMemoryGame();
+                // start game 2
+                cout << "Which player is playing? (1-4): ";
+                cin >> currentPlayer;
+                currentPlayer -= 1; // Adjusting the index to be 0-based
+                scores[currentPlayer] += playMemoryGame(); // add the score to current player playing
                 break;
             case 3:
-                playSimpleCardGame();
+                // start game 3
+                cout << "Which player is playing? (1-4): ";
+                cin >> currentPlayer;
+                currentPlayer -= 1; // Adjusting the index to be 0-based
+                scores[currentPlayer] += playSimpleCardGame(); // add the score to current player playing
+                break;
+            case 4:
+                // view leaderboard
+                cout << "Leaderboard:" << endl;
+                for (int i = 0; i < 4; i++) {
+                    cout << "Player " << i + 1 << ": " << scores[i] << endl;
+                }
+                break;
+            case 5:
+                exit = true;
                 break;
             default:
+                cout << "Invalid choice. Please try again." << endl;
                 break;
         }
     }
