@@ -10,11 +10,12 @@ int playSimpleCardGame();
 void casino() {
     int choice;
     bool exit = false;
-    int scores[4] = {0, 0, 0, 0}; // players score
+    int scores[6] = {0, 0, 0, 0, 0, 0}; // players score
     int currentPlayer = 0;
+    int currentMultiplayer[6] = {0, 0, 0, 0, 0, 0} // player temporary score for multiplayer game
  
     while (!exit) {
-        cout << "--------------------------------  Welcome to----------------------------------" << endl;
+        cout << "-------------------------------- :Welcome to: --------------------------------" << endl;
         cout << "░█████╗░░█████╗░██████╗░██████╗░  ░█████╗░░█████╗░░██████╗██╗███╗░░██╗░█████╗░" << endl;
         cout << "██╔══██╗██╔══██╗██╔══██╗██╔══██╗  ██╔══██╗██╔══██╗██╔════╝██║████╗░██║██╔══██╗" << endl;
         cout << "██║░░╚═╝███████║██████╔╝██║░░██║  ██║░░╚═╝███████║╚█████╗░██║██╔██╗██║██║░░██║" << endl;
@@ -24,7 +25,7 @@ void casino() {
         cout << "------------------------------------------------------------------------------" << endl;
         cout << "Welcome to Card Casino!" << endl;
         cout << "1. Play single player (Card Match) " << endl;
-        cout << "2. Play together (Memory Game): " << endl;
+        cout << "2. Play together (41): " << endl;
         cout << "3. Play Simple Card Game" << endl;
         cout << "4. View leaderboard" << endl;
         cout << "5. Exit" << endl;
@@ -47,8 +48,8 @@ void casino() {
                 break;
             case 3:
                 // start game 3
-                cout << "Which player is playing? (1-4): ";
-                cin >> currentPlayer;
+                cout << "Which players are playing? (Enter the player numbers, 4-6 players allowed): ";
+                cin >> ; // to be implemented
                 currentPlayer -= 1; // Adjusting the index to be 0-based
                 scores[currentPlayer] += playSimpleCardGame(); // add the score to current player playing
                 break;
@@ -56,14 +57,14 @@ void casino() {
                 // view leaderboard
                 cout << "Leaderboard:" << endl;
                 for (int i = 0; i < 4; i++) {
-                    cout << "Player " << i + 1 << ": " << scores[i] << endl;
+                    cout << "Player " << i + 1 << ": " << "$" << scores[i] << endl;
                 }
                 break;
             case 5:
                 exit = true;
                 break;
             default:
-                cout << "Invalid choice. Please try again." << endl;
+                cout << "Invalid choice. Please choose a number between 1-5." << endl;
                 break;
         }
     }
