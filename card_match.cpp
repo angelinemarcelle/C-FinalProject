@@ -22,6 +22,7 @@ void Board::play() { // moved this from main function to void play() for better 
             print(true);
             first_turn = false;
             cout << "Memorise the picture of the board for 5 seconds" << endl;
+            cout << "Do not press any key while this screen is on!" << endl;
             this_thread::sleep_for(chrono::seconds(5));
             system("clear");
             print();
