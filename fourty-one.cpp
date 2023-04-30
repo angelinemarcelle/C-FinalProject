@@ -91,6 +91,7 @@ void takeCard(vector<Card> &hand, vector<Card> &deck) {
     cout << "The card has been removed." << endl;
     cout << "Updated hand: ";
     printHand(hand);
+    printScore(hand);
     // Remove the card from the deck as well
     deck.push_back(newCard);
     sort(hand.begin(), hand.end(), [](Card a, Card b) {
@@ -145,7 +146,7 @@ void takeCard(vector<Card> &hand, vector<Card> &deck) {
 
   cout << "Updated hand: ";
   printHand(hand);
-
+  printScore(hand);
   cout << endl << endl;
 }
 
