@@ -2,17 +2,25 @@
 #include <string>
 using namespace std;
 
+// Include the game functions here
+void playCardMatchingGame();
+void playMemoryGame();
+void playSimpleCardGame();
+
 int casino() {
     int num_players;
-    int coins = 1000; //num of coins to begin with (shared, one acc only)
+    int coins = 1000; //num of coins to begin with (shared, one account only)
     bool valid = false;
     bool quit = false;
     while (coins > 0 && !quit){
         if (coins == 1000){
-            cout << "Welcome to the casino! Please tell us number of players (1-4) :\n";
+            cout << "Welcome to the casino! Please choose a game to play:\n";
         } else{
-            cout << "Welcome again! Please tell us number of players (1-4) for another round\nor (q) to discontinue\nor (c) to check remaining coins:\n";
+            cout << "Welcome again! Please choose a game to play for another round\nor (q) to discontinue\nor (c) to check remaining coins:\n";
         }
+        cout << "1. Card Matching Game\n";
+        cout << "2. Memory Game\n";
+        cout << "3. Simple Card Game\n";
         valid = false;
         string userInput;
         while(!valid){
@@ -24,20 +32,34 @@ int casino() {
             }
             if (userInput == "c" || userInput == "C" || userInput == "check" || userInput == "Check"){
                 cout<<"Your remaining coins: "<<coins<<endl;
-                cout<<"Please tell us number of players (1-4) for another round\nor (q) to discontinue\nor (c) to check remaining coins:\n";
+                cout<<"Please choose a game to play for another round\nor (q) to discontinue\nor (c) to check remaining coins:\n";
                 continue;
             }
-            if (userInput.length() >1 || userInput<"1" || userInput>"4"){
-                cout << "Cannot be smaller than 1, bigger than 4 or alphabet (1-4)! Please input again :\n";
+            if (userInput.length() >1 || userInput<"1" || userInput>"3"){
+                cout << "Invalid input! Please choose a game (1-3):\n";
                 continue;
             }
-            num_players = stoi(userInput);
-            if (num_players >= 1 && num_players <= 4) {
+            int game_choice = stoi(userInput);
+            if (game_choice >= 1 && game_choice <= 3) {
                 valid = true;
             } else {
-                cout << "Only games with 1-4 players are available. Please input again (1-4) :\n";
+                cout << "Invalid input! Please choose a game (1-3):\n";
             }
         }
-        coins--;
+        coins--; // Deduct coins for playing a game
+
+        switch (stoi(userInput)) {
+            case 1:
+                playCardMatchingGame();
+                break;
+            case 2:
+                playMemoryGame();
+                break;
+            case 3:
+                playSimpleCardGame();
+                break;
+            default:
+                break;
+        }
     }
 }
