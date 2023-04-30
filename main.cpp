@@ -22,17 +22,18 @@ int main() {
                 // start game 1
                 cout << "Which player is playing? (1-4): ";
                 cin >> currentPlayer;
-                scores[currentPlayer] += playCardMatch() // add the score to current player playing
+                currentPlayer -= 1; // Adjusting the index to be 0-based
+                scores[currentPlayer] += playCardMatch(); // add the score to current player playing
                 break;
             case 2:
                 // start game 2
                 break;
             case 3:
-                    // view leaderboard
-              cout << "Leaderboard:" << endl;
-              for (int i = 0; i < 4; i++) {
-                  cout << "Player " << i + 1 << ": " << scores[i] << endl;
-              }
+                // view leaderboard
+                cout << "Leaderboard:" << endl;
+                for (int i = 0; i < 4; i++) {
+                    cout << "Player " << i + 1 << ": " << scores[i] << endl;
+                }
                 break;
             case 4:
                 exit = true;
