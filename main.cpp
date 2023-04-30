@@ -12,7 +12,8 @@ void casino() {
     bool exit = false;
     int scores[6] = {0, 0, 0, 0, 0, 0}; // players score
     int currentPlayer = 0;
-    int currentMultiplayer[6] = {0, 0, 0, 0, 0, 0} // player temporary score for multiplayer game
+    int currentMultiplayer = 0; // player temporary score for multiplayer game
+    int currentTwoPlayer = 0;
  
     while (!exit) {
         cout << "-------------------------------- :Welcome to: --------------------------------" << endl;
@@ -25,8 +26,8 @@ void casino() {
         cout << "------------------------------------------------------------------------------" << endl;
         cout << "Welcome to Card Casino!" << endl;
         cout << "1. Play single player (Card Match) " << endl;
-        cout << "2. Play together (41): " << endl;
-        cout << "3. Play Simple Card Game" << endl;
+        cout << "2. Play all together (41): " << endl;
+        cout << "3. Play two people ()" << endl;
         cout << "4. View leaderboard" << endl;
         cout << "5. Exit" << endl;
         cout << "Enter your choice (1-5) : ";
