@@ -49,10 +49,10 @@ int getCardValue(Card c) {
     return stoi(c.face);
 }
 
-int getHandValue(vector<Card> &hand) {
+int getHandValue(const vector<Card> &hand) {
   int value = 0;
-  for (Card &c : hand) {
-    value += getCardValue(c);
+  for (const Card &c : hand) {
+      value += getCardValue(c);
   }
   return value;
 }
@@ -72,7 +72,7 @@ void printScore(const vector<Card> &hand) {
 void takeCard(vector<Card> &hand, vector<Card> &deck) {
   cout << "Your hand: ";
   printHand(hand);
-  printScore(vector<Card>{newCard});
+  printScore(hand);
   cout << "New card: ";
   random_device rd;  // obtain a random seed from the system
   mt19937 gen(rd()); // seed the generator
