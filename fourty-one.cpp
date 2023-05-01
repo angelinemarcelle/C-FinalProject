@@ -232,6 +232,9 @@ void Game::play() {
   return 0;
 }
 
+int run(){
+    
+
 int main() {
     srand(time(nullptr));
 
