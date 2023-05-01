@@ -68,16 +68,16 @@ int main() {
             cout << "Enter your wager: ";
             cin >> wager;
             // Check if the player has enough money to make the wager
-            if (money[player1] < wager) {
+            if (players[player1].money < wager) {
                 cout << "Sorry, you don't have enough money to make that wager." << endl;
             } else {
                 // Subtract the wager from the player's score
-                player[player1].money -= wager;
+                players[player1].money -= wager;
                 // Run the game 
                 bool win = playMemoryGame();
                 // Double the score if the player wins, or set it to 0 if they lose
                 if (win){
-                    player[player1].money += 2 * wager;
+                    players[player1].money += 2 * wager;
                     cout << "Congratulations! You won " <<"$ " << 2 * wager << endl;
                 } else {
                     cout << "Sorry, you lost your wager." << endl;
@@ -99,19 +99,19 @@ int main() {
             cin >> wager;
             
             // Check if the players have enough money to make the wager
-            if (player[player1].money < wager || player[player2].money < wager) {
+            if (players[player1].money < wager || player[player2].money < wager) {
                 cout << "Sorry, one or both players don't have enough money to make that wager." << endl;
             } else {
                 // Subtract the wager from the players' scores
-                money[player1] -= wager;
-                money[player2] -= wager;
+                players[player1].money -= wager;
+                players[player2].money -= wager;
                 
                 // Determine the winner of the game
                 if (playCardMatchingGame()) { // player 1 wins
-                    player[player1].money += 2 * wager;
+                    players[player1].money += 2 * wager;
                     cout << players[player1].name << " wins " << 2 * wager << " points!" << endl;
                 } else { // player 2 wins
-                    player[player2].money += 2 * wager;
+                    players[player2].money += 2 * wager;
                     cout << players[player2].name << " wins " << 2 * wager << " points!" << endl;
                 }
             }
@@ -131,6 +131,7 @@ int main() {
                     allPlayersHaveEnoughMoney = false;
                     break;
                 }
+            }
             
             if (!allPlayersHaveEnoughMoney) {
                 cout << "Sorry, one or more players don't have enough money to make that wager." << endl;
@@ -139,6 +140,7 @@ int main() {
                 for (int i = 0; i < numPlayers; i++) {
                     players[i].money -= wager;
                 }
+              }
         
                 // Play the game 
                 int winningPlayerIndex = playSimpleCardGame();
@@ -147,14 +149,15 @@ int main() {
                 players[winningPlayerIndex].money += totalWinnings;
                 cout << players[winningPlayerIndex].name << " wins " << totalWinnings << " points!" << endl;
                 break;
-            case 4:
+                
+          case 4:
                 // view players' money
                 cout << "Players' Money:" << endl;
                 for (int i = 0; i < 4; i++) {
                     cout << players[i].name << ": " << "$" << players[i].money << endl;
                 }
                 break;
-            case 5:
+          case 5:
                 // view game rules
                 int choice;
                 bool valid_choice = false;
@@ -182,11 +185,10 @@ int main() {
             default:
                 cout << "Invalid choice. Please choose a number between 1-5." << endl;
                 break;
-        }
-      }
     return 0;
     }
   
+} 
 
 
 
