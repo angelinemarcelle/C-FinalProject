@@ -147,5 +147,46 @@ int main() {
                 players[winningPlayerIndex].money += totalWinnings;
                 cout << players[winningPlayerIndex].name << " wins " << totalWinnings << " points!" << endl;
                 break;
-                
+            case 4:
+                // view players' money
+                cout << "Players' Money:" << endl;
+                for (int i = 0; i < 4; i++) {
+                    cout << players[i].name << ": " << "$" << players[i].money << endl;
+                }
+                break;
+            case 5:
+                // view game rules
+                int choice;
+                bool valid_choice = false;
+                while (!valid_choice) {
+                    cout << "Which game rule do you want to see?" << endl;
+                    cout << "Single player (Card Match), Double player (Switch Card), Multiplayer (41): (1-3)" << endl;
+                    cin >> choice;
+                    if (choice == 1) {
+                        // view game rules for single player (Card Match)
+                        valid_choice = true;
+                    } else if (choice == 2) {
+                        // view game rules for double player (Switch Card)
+                        valid_choice = true;
+                    } else if (choice == 3) {
+                        // view game rules for multiplayer (41)
+                        valid_choice = true;
+                    } else {
+                        cout << "Please input a valid number to view its game rules!" << endl;
+                    }
+                }
+                break;
+            case 6:
+                exit = true;
+                break;
+            default:
+                cout << "Invalid choice. Please choose a number between 1-5." << endl;
+                break;
+        }
+      }
+    return 0;
+    }
+  
+
+
 
