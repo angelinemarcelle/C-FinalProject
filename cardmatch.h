@@ -11,5 +11,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <chrono> // added for play time calculation
+#include <ctime>
+
 
 #endif
