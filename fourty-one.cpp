@@ -19,6 +19,8 @@ public:
     bool gameOver(vector<vector<Card>> &hands, vector<Card> &deck);
     int getWinner(vector<vector<Card>> &hands);
     void play();
+    int run();
+
 private:
     vector<Card> deck;
 };
@@ -232,14 +234,9 @@ void Game::play() {
   return 0;
 }
 
-int run(){
-    
-
-int main() {
-    srand(time(nullptr));
-
-    Game game;
-    while (true) {
+int Game::run(){
+  Game game;
+  while (true) {
       cout << "Welcome to the Exciting 4-Player Card Game!, ready (y/n)";
       char reaction;
       cin >> reaction;
@@ -251,4 +248,12 @@ int main() {
       }
       return 0;
     }
+}
+    
+
+int main() {
+    srand(time(nullptr));
+
+    Game game;
+    game.run();
 }
