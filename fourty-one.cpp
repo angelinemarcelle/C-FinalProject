@@ -1,8 +1,4 @@
-#include <algorithm>
-#include <ctime>
-#include <iostream>
-#include <random>
-#include <vector>
+#include "cardmatch.h"
 
 using namespace std;
 
