@@ -52,7 +52,7 @@ If you win, you will receive the combined wager from all players. Remember, the 
 
 
 Group members:
-1. Song Chan Woo, 3035977628
+1. Song Chawoo, 3035977628
 2. Lukito Angeline Marcelle, 3036037322
 3. Garth Winston Patrick, 3036029715
 4. Tanujaya Clarence Marvin, 3035993933
