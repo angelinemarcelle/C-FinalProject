@@ -40,7 +40,7 @@ int main() {
     // Print out the names of the 4 players
     cout << "All players' starting money: ";
     for (int i = 0; i < 4; i++) {
-        cout << i+1 << players[i].name << "$1000" << endl;
+        cout << i+1 << "." <<players[i].name << ": "<<"$1000" << endl;
     }
     cout << "Press any key to let the game begin!" << endl;
     cin >> _;
@@ -50,7 +50,7 @@ int main() {
         cout << "1. Play single player (Card Match) " << endl;
         cout << "2. Play two player (Switch Card)" << endl;
         cout << "3. Play multiplayer (41): " << endl;
-        cout << "4. View leaderboard" << endl;
+        cout << "4. View all players' money" << endl;
         cout << "5. Read game rules" << endl;
         cout << "6. Exit" << endl;
         cout << "Enter your choice (1-6) : ";
@@ -118,64 +118,41 @@ int main() {
             break;
 
           case 3:
-              // start game 3
-              int wager;
-              int numPlayer = 4;
-              cout << "Enter the wager for all players: ";
-              cin >> wager;
-      
-              // Check if all players have enough money to make the wager
-              bool allPlayersHaveEnoughMoney = true;
-              for (int i = 0; i < numPlayers; i++) {
-                  if (money[i] < wager) {
-                      allPlayersHaveEnoughMoney = false;
-                      break;
-                  }
-              }
-      
-              if (!allPlayersHaveEnoughMoney) {
-                  cout << "Sorry, one or more players don't have enough money to make that wager." << endl;
-              } else {
-                  // Subtract the wager from all players' scores
-                  for (int i = 0; i < numPlayers; i++) {
-                      money[i] -= wager;
-                  }
-      
-                  // Play the game for all players
-                  int numPlayersInGame = 0;
-                  for (int i = 0; i < numPlayers; i++) {
-                      if (money[i] >= wager) {
-                          numPlayersInGame++;
-                      }
-                  }
-      
-                  int winningPlayerIndex = -1;
-                  int winningScore = -1;
-                  for (int i = 0; i < numPlayers; i++) {
-                      if (money[i] >= wager) {
-                          int gameResult = playSimpleCardGame();
-                          if (gameResult > winningScore) {
-                              winningPlayerIndex = i;
-                              winningScore = gameResult;
-                          }
-                      }
-                  }
-      
-                  // Calculate the winnings and update the scores
-                  if (winningPlayerIndex >= 0) {
-                      int totalWinnings = numPlayersInGame * wager;
-                      money[winningPlayerIndex] += totalWinnings;
-                      cout << players[winningPlayerIndex].name << " wins " << totalWinnings << " points!" << endl;
-                  } else {
-                      cout << "No player had enough money to play the game." << endl;
-                  }
-              }
-              break;
+            // start game 3
+            int wager;
+            int numPlayers = 4;
+            cout << "Enter the wager for all players: ";
+            cin >> wager;
+        
+            // Check if all players have enough money to make the wager
+            bool allPlayersHaveEnoughMoney = true;
+            for (int i = 0; i < numPlayers; i++) {
+                if (players[i].money < wager) {
+                    allPlayersHaveEnoughMoney = false;
+                    break;
+                }
+            
+            if (!allPlayersHaveEnoughMoney) {
+                cout << "Sorry, one or more players don't have enough money to make that wager." << endl;
+            } else {
+                // Subtract the wager from all players' scores
+                for (int i = 0; i < numPlayers; i++) {
+                    players[i].money -= wager;
+                }
+        
+                // Play the game 
+                int winningPlayerIndex = playSimpleCardGame();
+                // Award them all the money wagered
+                int totalWinnings = 4 * wager;
+                players[winningPlayerIndex].money += totalWinnings;
+                cout << players[winningPlayerIndex].name << " wins " << totalWinnings << " points!" << endl;
+                break;
+                
             case 4:
-                // view leaderboard
-                cout << "Leaderboard:" << endl;
+                // view players' money
+                cout << "Players' Money:" << endl;
                 for (int i = 0; i < 4; i++) {
-                    cout << "Player " << i + 1 << ": " << "$" << money[i] << endl;
+                    cout << players[i].name << ": " << "$" << players[i].money << endl;
                 }
                 break;
             case 5:
