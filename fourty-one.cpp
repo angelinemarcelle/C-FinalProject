@@ -1,6 +1,5 @@
 #include "cardmatch.h"
 
-
 using namespace std;
 
 struct Card {
@@ -42,13 +41,13 @@ void Game::createDeck() {
             else
                 c.face = to_string(v);
             if (s == 0)
-                c.suit = "H";
+                c.suit = "♥";
             else if (s == 1)
-                c.suit = "D";
+                c.suit = "♦";
             else if (s == 2)
-                c.suit = "S";
+                c.suit = "♠";
             else
-                c.suit = "C";
+                c.suit = "♣";
             deck.push_back(c);
         }
     }
@@ -103,6 +102,7 @@ int Game::getHandValue(const vector<Card> &hand) {
 void Game::printHand(const vector<Card> &hand) {
   for (const auto &card : hand) {
     cout << card.face << card.suit << " ";
+   
   }
   cout << endl;
 }
@@ -116,6 +116,7 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
   cout << "Your hand: ";
   printHand(hand);
   printScore(hand);
+  cout << "----------------------------------------------------" << endl;
   cout << "New card: ";
   random_device rd;  // obtain a random seed from the system
   mt19937 gen(rd()); // seed the generator
@@ -125,7 +126,7 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
   deck[randIndex] = deck.back();
   deck.pop_back();
   printHand(vector<Card>{newCard});
-
+  cout << "----------------------------------------------------" << endl;
   int discardIdx;
   char removeCard;
   cout << "Do you want to discard this drawn card? (y/n): ";
@@ -224,7 +225,9 @@ void Game::play() {
 
   int currentPlayer = 0;
   while (!gameOver(hands, deck)) {
+    system("clear");
     cout << "Player " << currentPlayer + 1 << "'s turn:" << endl;
+    cout << "----------------------------------------------------" << endl;
     takeCard(hands[currentPlayer], deck);
     currentPlayer = (currentPlayer + 1) % numPlayers;
   }
