@@ -1,5 +1,6 @@
 #include "cardmatch.h"
 
+
 using namespace std;
 
 struct Card {
@@ -157,11 +158,10 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
     return;
   }
 
-  cout << "Choose a card index to discard (0-3): ";
+  cout << "Choose a card index to discard (1-4) ";
   cin >> discardIdx;
-
-  Card discardedCard = hand[discardIdx];
-  hand[discardIdx] = newCard;
+  Card discardedCard = hand[discardIdx-1];
+  hand[discardIdx-1] = newCard;
   // Remove the card from the deck as well
   deck.push_back(discardedCard);
 
@@ -230,14 +230,14 @@ void Game::play() {
   }
   int winner = getWinner(hands);
   cout << "Player " << winner + 1 << " wins!" << endl;
-
-  return 0;
+  
+  return winner;
 }
 
 int Game::run(){
   Game game;
   while (true) {
-      cout << "Welcome to the Exciting 4-Player Card Game!, ready (y/n)";
+      cout << "Welcome to the Exciting 4-Player Card Game!, ready (y/n)? ";
       char reaction;
       cin >> reaction;
       if (reaction != 'y') {
@@ -249,7 +249,7 @@ int Game::run(){
       return 0;
     }
 }
-    
+
 
 int main() {
     srand(time(nullptr));
