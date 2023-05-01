@@ -1,18 +1,6 @@
 #include 'cardmatch.h'
 using namespace std;
 
-class Board { // updated class 30th April 2023
-public:
-    int board_size;
-    bool first_turn = true;
-    vector<vector<string>> board;
-    vector<vector<bool>> revealed;
-    void play();
-    void print(bool show_all = false);
-    vector<vector<string>> createBoard(int board_size);
-    int calculateweight(int time);
-};
-
 void Board::play() { // moved this from main function to void play() for better organisation
     int matches_found = 0;
     int total_pairs = (board_size * board_size) / 2;
