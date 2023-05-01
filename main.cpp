@@ -10,7 +10,7 @@ int playSimpleCardGame();
 void casino() {
     int choice;
     bool exit = false;
-    int money[6] = {200, 200, 200, 200, 200, 200}; // starting money
+    int money[6] = {1000, 1000, 1000, 1000}; // starting money
     int currentPlayer = 0;
     int currentMultiplayer = 0; // player temporary score for multiplayer game
     int currentTwoPlayer = 0;
