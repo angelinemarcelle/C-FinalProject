@@ -1,5 +1,6 @@
 #include "cardmatch.h"
 
+
 using namespace std;
 
 struct Card {
@@ -20,10 +21,12 @@ public:
     int getWinner(vector<vector<Card>> &hands);
     void play();
     int run();
+    void exit();
 
 private:
     vector<Card> deck;
 };
+
 
 
 void Game::createDeck() {
@@ -113,6 +116,7 @@ void Game::printScore(const vector<Card> &hand) {
 }
 
 void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
+  Game game;
   cout << "Your hand: ";
   printHand(hand);
   printScore(hand);
@@ -131,7 +135,10 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
   char removeCard;
   cout << "Do you want to discard this drawn card? (y/n): ";
   cin >> removeCard;
-  if (removeCard == 'y') {
+  if (removeCard == 'e'){
+    ::exit(0);
+  }
+  else if (removeCard == 'y') {
     cout << "The card has been removed." << endl;
     cout << "Updated hand: ";
     printHand(hand);
@@ -159,7 +166,7 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
     return;
   }
 
-  cout << "Choose a card index to discard (1-4) ";
+  cout << "Choose a card index to discard (1-4): ";
   cin >> discardIdx;
   Card discardedCard = hand[discardIdx-1];
   hand[discardIdx-1] = newCard;
@@ -244,7 +251,7 @@ int Game::run(){
       char reaction;
       cin >> reaction;
       if (reaction != 'y') {
-          break;
+          ::exit(0);
         }
       else {
         game.play();
