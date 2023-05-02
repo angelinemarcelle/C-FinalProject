@@ -12,8 +12,8 @@ int playSimpleCardGame(); // 4 player game
 
 // Players' database
 struct Player {
-  string* name; // player's name
-  int* money; // player's score
+  string name; // player's name
+  int money; // player's score
 };
 
 // Save ingame data
@@ -47,6 +47,7 @@ int main() {
     cin >> _;
     // register player
     Player* players[4];
+    players = new Player[4];
     ifstream infile("gamedata.txt");
     // Read in the names of the 4 players
     if (infile.is_open()) {
@@ -54,7 +55,7 @@ int main() {
         infile.seekg(0, ios::end);
         if (infile.tellg() == 0) {
             // File is empty register user data first
-            cout << "No game data found. Please enter the player data:" << endl;
+            cout << "No previous game data found. Please enter the player data first:" << endl;
             for (int i = 0; i < 4; i++) {
                 cout << "Enter the name of player " << i+1 << ": ";
                 cin >> players[i].name;
@@ -90,7 +91,7 @@ int main() {
     // Print out the names of the 4 players
     cout << "All players' starting money: ";
     for (int i = 0; i < 4; i++) {
-        cout << i+1 << "." << *players[i].name << ": "<<"$1000" << endl;
+        cout << i+1 << "." << *players[i].name << ": "<< "$1000" << endl;
     }
     cout << "Press enter to let the game begin!" << endl;
     cin >> _;
@@ -123,18 +124,18 @@ int main() {
             } else {
                 // Subtract the wager from the player's score
                 *players[player1].money -= wager;
-                save();
+                save(* players);
                 // Run the game 
                 int result = playMemoryGame();
                 // Double the score if the player wins, or set it to 0 if they lose
                 if (result == 3){
                     *players[player1].money += 3 * wager;
-                    save()
+                    save(* players);
                     cout << "Congratulations! You won " <<"$ " << 3 * wager << endl;
                 } 
                 else if (result == 2){
                     *players[player1].money += 2 * wager;
-                    save()
+                    save();
                     cout << "Congratulations! You won " <<"$ " << 1 * wager << endl;
                 }
                 else {
@@ -163,23 +164,23 @@ int main() {
                 // Subtract the wager from the players' scores
                 *players[player1].money -= wager;
                 *players[player2].money -= wager;
-                save();
+                save(* players);
                 int resultg2 = playCardMatchingGame();
                 // Determine the winner of the game
                 if (resultg2 == 1) { // player 1 wins
                     *players[player1].money += 2 * wager;
                     cout << *players[player1].name << " wins " << 2 * wager << " points!" << endl;
-                    save();
+                    save(* players);
                 } else if (resultg2 == 2){ 
                     *players[player2].money += 2 * wager;
                     cout << *players[player2].name << " wins " << 2 * wager << " points!" << endl;
-                    save();
+                    save(* players);
                 }
               else{ // Tie, return initial
                     *players[player1].money +=  wager;
                     *players[player2].money +=  wager;
                     cout << "It's a tie, no one wins, no one loses!" << endl;
-                    save();
+                    save(* players);
               }
             }
             break;
@@ -207,7 +208,7 @@ int main() {
                 for (int i = 0; i < numPlayers; i++) {
                     *players[i].money -= wager;
                 }
-                save();
+                save(* players);
               }
         
                 // Play the game 
@@ -216,7 +217,7 @@ int main() {
                 int totalWinnings = 4 * wager;
                 *players[winningPlayerIndex].money += totalWinnings;
                 cout << *players[winningPlayerIndex].name << " wins " << totalWinnings << " points!" << endl;
-                save();
+                save(* players);
                 break;
                 
           case 4:
@@ -250,7 +251,7 @@ int main() {
                 break;
             case 6:
                 exit = true;
-                save();
+                save(* players);
                 break;
             default:
                 cout << "Invalid choice. Please choose a number between 1-5." << endl;
