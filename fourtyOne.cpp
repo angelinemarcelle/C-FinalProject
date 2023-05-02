@@ -1,32 +1,4 @@
-#include "cardmatch.h"
-
-
-using namespace std;
-
-struct Card {
-    string face; // "A", "2"-"10", "J", "Q", "K"
-    string suit; // "H", "D", "S", "C"
-};
-
-class Game {
-public:
-    void createDeck();
-    void deal(vector<Card> &hand, vector<Card> &deck, int numCards);
-    int getCardValue(Card c);
-    int getHandValue(const vector<Card> &hand);
-    void printHand(const vector<Card> &hand);
-    void printScore(const vector<Card> &hand);
-    void takeCard(vector<Card> &hand, vector<Card> &deck);
-    bool gameOver(vector<vector<Card>> &hands, vector<Card> &deck);
-    int getWinner(vector<vector<Card>> &hands);
-    void play();
-    int run();
-    void exit();
-
-private:
-    vector<Card> deck;
-};
-
+#include "fourtyOne.h"
 
 
 void Game::createDeck() {
@@ -116,7 +88,6 @@ void Game::printScore(const vector<Card> &hand) {
 }
 
 void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
-  Game game;
   cout << "Your hand: ";
   printHand(hand);
   printScore(hand);
@@ -138,7 +109,7 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
   if (removeCard == 'e'){
     ::exit(0);
   }
-  else if (removeCard == 'y') {
+  if (removeCard == 'y') {
     cout << "The card has been removed." << endl;
     cout << "Updated hand: ";
     printHand(hand);
@@ -166,7 +137,7 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
     return;
   }
 
-  cout << "Choose a card index to discard (1-4): ";
+  cout << "Choose a card index to discard (1-4) ";
   cin >> discardIdx;
   Card discardedCard = hand[discardIdx-1];
   hand[discardIdx-1] = newCard;
@@ -221,7 +192,7 @@ int Game::getWinner(vector<vector<Card>> &hands) {
   return winnerIdx;
 }
 
-void Game::play() {
+int Game::play() {
     const int numPlayers = 4;
     char reaction;
     createDeck();
@@ -258,12 +229,14 @@ int Game::run(){
       }
       return 0;
     }
+  return 0;
 }
 
 
-int main() {
+int game3() {
     srand(time(nullptr));
 
     Game game;
     game.run();
+    return 0;
 }
