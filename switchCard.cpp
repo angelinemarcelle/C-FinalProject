@@ -1,14 +1,31 @@
-#include "switchCard.h"
+#include <algorithm>
+#include <ctime>
+#include <iostream>
+#include <vector>
 
+using namespace std;
 
-int game2() {
+struct Card {
+    string face;
+    string suit;
+};
+
+vector<Card> createDeck();
+void shuffleDeck(vector<Card>& deck);
+vector<vector<Card>> dealCards(vector<Card>& deck, int numPlayers, int numCards);
+void printHand(const vector<Card>& hand);
+int getCardValue(const Card& card);
+void swapCards(vector<Card>& hand, vector<Card>& deck, int cardIndex);
+int scoreHand(const vector<Card>& hand);
+
+int main() {
     const int numPlayers = 2;
     const int numCards = 5;
 
-    vector<Cards> deck = createDeck();
+    vector<Card> deck = createDeck();
     shuffleDeck(deck);
 
-    vector<vector<Cards>> hands = dealCards(deck, numPlayers, numCards);
+    vector<vector<Card>> hands = dealCards(deck, numPlayers, numCards);
 
     for (int player = 0; player < numPlayers; ++player) {
         cout << "Player " << player + 1 << "'s turn:" << endl;
@@ -21,9 +38,9 @@ int game2() {
 
         for (int i = 0; i < numCardsToSwap; ++i) {
             int cardIndex;
-            cout << "Enter the index of the card to swap (1-" << numCards << "): ";
+            cout << "Enter the line of the card to swap (1-" << numCards << "): ";
             cin >> cardIndex;
-
+            
             hands[player][cardIndex - 1] = deck.back();
             deck.pop_back();
         }
@@ -46,23 +63,24 @@ int game2() {
     } else {
         return 0;
     }
+
 }
 
 
-void swapCards(vector<Cards>& hand, vector<Cards>& deck, int cardIndex) {
+void swapCards(vector<Card>& hand, vector<Card>& deck, int cardIndex) {
     hand[cardIndex] = deck.back();
     deck.pop_back();
 }
 
-int scoreHand(const vector<Cards>& hand) {
+int scoreHand(const vector<Card>& hand) {
     int score = 0;
-    for (const Cards& card : hand) {
+    for (const Card& card : hand) {
         score += getCardValue(card);
     }
     return score;
 }
 
-int getCardValue(const Cards& card) {
+int getCardValue(const Card& card) {
     if (card.face == "A") {
         return 11;
     } else if (card.face == "K" || card.face== "Q" || card.face == "J") {
@@ -72,10 +90,10 @@ int getCardValue(const Cards& card) {
     }
 }
 
-vector<Cards> createDeck() {
+vector<Card> createDeck() {
     vector<string> faces = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
     vector<string> suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
-    vector<Cards> deck;
+    vector<Card> deck;
     for (const string& suit : suits) {
         for (const string& face : faces) {
             deck.push_back({face, suit});
@@ -85,12 +103,12 @@ vector<Cards> createDeck() {
     return deck;
 }
 
-void shuffleDeck(vector<Cards>& deck) {
+void shuffleDeck(vector<Card>& deck) {
     random_shuffle(deck.begin(), deck.end());
 }
 
-vector<vector<Cards>> dealCards(vector<Cards>& deck, int numPlayers, int numCards) {
-    vector<vector<Cards>> hands(numPlayers, vector<Cards>(numCards));
+vector<vector<Card>> dealCards(vector<Card>& deck, int numPlayers, int numCards) {
+    vector<vector<Card>> hands(numPlayers, vector<Card>(numCards));
     for (int player = 0; player < numPlayers; ++player) {
         for (int card = 0; card < numCards; ++card) {
             hands[player][card] = deck.back();
@@ -101,8 +119,8 @@ vector<vector<Cards>> dealCards(vector<Cards>& deck, int numPlayers, int numCard
     return hands;
 }
 
-void printHand(const vector<Cards>& hand) {
-    for (const Cards& card : hand) {
+void printHand(const vector<Card>& hand) {
+    for (const Card& card : hand) {
         cout << card.face << " of " << card.suit << endl;
     }
 }
