@@ -13,6 +13,7 @@ To play, follow these simple steps:
   1. Choose the board size by entering 4 or 6. The bigger the board size, the more cards will be in play.
   2. You will be given 5 seconds to memorize the card elements displayed on the board. 
   3. Enter two numbers that you think are the same.
+  4. You could exit the program by enter 'e' when the player's turn start.
 
 If you can successfully complete the game within the allotted time, you will win a prize based on your performance.
   - For the 4x4 board, if you finish in under 30 seconds, you will receive double your initial wager. If you finish in over 30 seconds, you will receive your initial wager.
@@ -29,6 +30,7 @@ Here's how to play:
   2. Each player will be shown their collection of cards, but keep it hidden from your opponent. You will then have the option to either keep your cards or swap them with random cards generated from the deck.
   3. If you choose to swap your cards, you will be given the option to choose how many and which cards to swap (1-5).
   4. After both players have dealt their cards, both hands are revealed to each other. The player with the higher value of cards will win.
+  5. You could exit the program by enter 'e' when the player's turn start.
 
 To calculate your score, use the following values:
   - Number cards represent their own numbers.
@@ -46,6 +48,7 @@ Here's how to play:
   2. Your cards will be displayed on the screen, along with your current score. You will have the option to either keep your current hand of cards or switch one of your cards with a new card to try and get a better score.
   3. If you want to switch a card, press "y" and then choose the index of the card you want to switch (0-3). If you decide to keep your cards, press "n".
   4. All players will take turns until one player gets a score of 41.
+  5. You could exit the program by enter 'e' when the player's turn start.
 
 To calculate your score, use the following values:
   - Number cards represent their own numbers.
