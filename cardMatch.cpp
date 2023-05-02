@@ -22,8 +22,13 @@ void Board::play() { // moved this from main function to void play() for better 
         }
         
         int cell1, cell2; // input variables
+	cout << "You can type 0 to exit the game. However, your wager will be lost." << endl;
         cout << "Choose two cells to reveal (1-" << board_size * board_size << "): ";
         cin >> cell1 >> cell2;
+	    
+	if (cell1 == 0) {
+	    ::exit(0);
+	}
 
         if (cin.fail()) { // Check if the user has chosen the same cell twice
             cout << "You have inputted an invalid input\n";
