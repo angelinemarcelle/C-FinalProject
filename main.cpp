@@ -1,6 +1,5 @@
 #include <iostream>
-#include <ifstream>
-#include <ofstream>
+#include <fstream>
 #include "cardmatch.h"
 #include <string>
 
@@ -17,8 +16,22 @@ struct Player {
   int money; // player's score
 };
 
+//Save ingame data
+void save(){
+    ofstream outfile("gamedata.txt");
+    if (infile.is_open()) {
+        for (int i = 0; i < 4; i++) {
+            infile >> players[i].name >> players[i].money;
+        }
+        infile.close();
+    }
+    else {
+        cout << "Unable to open file." << endl;
+    }
+}
+
 int main() {
-    char _; // varialle for entering
+    char _; // variable for entering
     int choice;
     bool exit = false;
     // title screen
@@ -33,14 +46,14 @@ int main() {
     cout << "Press any key to continue!" << endl;
     cin >> _;
     // register player
-    Player players[4]; 
-    // Read in the names of the 4 players
+    Player players[4];
     ifstream infile("gamedata.txt");
+    // Read in the names of the 4 players
     if (infile.is_open()) {
         // Check if file is empty
         infile.seekg(0, ios::end);
         if (infile.tellg() == 0) {
-            // File is empty, prompt user to input data
+            // File is empty register user data first
             cout << "No game data found. Please enter the player data:" << endl;
             for (int i = 0; i < 4; i++) {
                 cout << "Enter the name of player " << i+1 << ": ";
@@ -55,12 +68,12 @@ int main() {
                 }
                 outfile.close();
             }
-            else {
+            else { // If the file is unable to be opened
                 cout << "Unable to open file." << endl;
             }
         }
         else {
-            // File is not empty, read player data from file
+            // Read player data from file
             infile.seekg(0, ios::beg);
             for (int i = 0; i < 4; i++) {
                 infile >> players[i].name >> players[i].money;
@@ -68,18 +81,16 @@ int main() {
             infile.close();
         }
     }
-    else {
+    else { // If the file is unable to be opened
         cout << "Unable to open file." << endl;
     }
-    // code to use player data
-    return 0;
-}
+
     // Print out the names of the 4 players
     cout << "All players' starting money: ";
     for (int i = 0; i < 4; i++) {
         cout << i+1 << "." <<players[i].name << ": "<<"$1000" << endl;
     }
-    cout << "Press any key to let the game begin!" << endl;
+    cout << "Press enter to let the game begin!" << endl;
     cin >> _;
   
     while (!exit) {
@@ -110,11 +121,13 @@ int main() {
             } else {
                 // Subtract the wager from the player's score
                 players[player1].money -= wager;
+                save();
                 // Run the game 
                 bool win = playMemoryGame();
                 // Double the score if the player wins, or set it to 0 if they lose
                 if (win){
                     players[player1].money += 2 * wager;
+                    save()
                     cout << "Congratulations! You won " <<"$ " << 2 * wager << endl;
                 } else {
                     cout << "Sorry, you lost your wager." << endl;
@@ -142,14 +155,16 @@ int main() {
                 // Subtract the wager from the players' scores
                 players[player1].money -= wager;
                 players[player2].money -= wager;
-                
+                save();
                 // Determine the winner of the game
                 if (playCardMatchingGame()) { // player 1 wins
                     players[player1].money += 2 * wager;
                     cout << players[player1].name << " wins " << 2 * wager << " points!" << endl;
+                    save();
                 } else { // player 2 wins
                     players[player2].money += 2 * wager;
                     cout << players[player2].name << " wins " << 2 * wager << " points!" << endl;
+                    save();
                 }
             }
             break;
@@ -177,6 +192,7 @@ int main() {
                 for (int i = 0; i < numPlayers; i++) {
                     players[i].money -= wager;
                 }
+                save();
               }
         
                 // Play the game 
@@ -185,6 +201,7 @@ int main() {
                 int totalWinnings = 4 * wager;
                 players[winningPlayerIndex].money += totalWinnings;
                 cout << players[winningPlayerIndex].name << " wins " << totalWinnings << " points!" << endl;
+                save();
                 break;
                 
           case 4:
@@ -218,6 +235,7 @@ int main() {
                 break;
             case 6:
                 exit = true;
+                save();
                 break;
             default:
                 cout << "Invalid choice. Please choose a number between 1-5." << endl;
