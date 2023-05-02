@@ -1,22 +1,22 @@
-#include 'cardmatch.h'
-using namespace std;
+#include "cardMatch.h"
 
 void Board::play() { // moved this from main function to void play() for better organisation
     int matches_found = 0;
     int total_pairs = (board_size * board_size) / 2;
     auto start_time = chrono::steady_clock::now(); // start timing
     bool gameplay = true;
+    bool first_turn = true;
 
     while (gameplay) { // game loop 
         if (first_turn) {
             print(true);
-            first_turn = false;
             cout << "Memorise the picture of the board for 5 seconds" << endl;
             cout << "Do not press any key while this screen is on!" << endl;
             this_thread::sleep_for(chrono::seconds(5));
             system("clear");
             cout << "From now on, your play time will be recorded!" << endl;
             print();
+            first_turn = false;
         } else {
             print();
         }
@@ -133,7 +133,7 @@ int Board::calculateweight(int time) {
     return 0;
 }
 
-int main() { // shorter main function
+int game1() { // shorter main function
     Board game; // define so that it can be accessed
     cout << "Choose the size of the board (4 or 6): ";
     cin >> game.board_size;
@@ -141,4 +141,5 @@ int main() { // shorter main function
     game.board = game.createBoard(game.board_size); // creating board 
     game.revealed.resize(game.board_size, vector<bool>(game.board_size));
     game.play();
+    return 0;
 }
