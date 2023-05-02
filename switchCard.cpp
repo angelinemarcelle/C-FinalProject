@@ -57,14 +57,13 @@ int main() {
     cout << "Player 2's score: " << player2Score << endl;
 
     if (player1Score > player2Score) {
-        cout << "Player 1 wins!" << endl;
+        return 1;
     } else if (player1Score < player2Score) {
-        cout << "Player 2 wins!" << endl;
+        return 2;
     } else {
-        cout << "It's a tie!" << endl;
+        return 0;
     }
 
-    return 0;
 }
 
 
