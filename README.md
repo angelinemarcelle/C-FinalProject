@@ -54,7 +54,7 @@ To calculate your score, use the following values:
 
 If you win, you will receive the combined wager from all players. Remember, the winner takes it all, so play and strategize well!
 
-
+---
 Group members:
 1. Song Chawoo, 3035977628
 2. Lukito Angeline Marcelle, 3036037322
