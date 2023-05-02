@@ -1,7 +1,7 @@
 ## ENGG1340 Final Project - Group 9
 CARD CASINO 🃏💲
 ---
-Welcome to the Card Casino Game. We have 3 mini games for you to play. You can play alone, with a partner, and with 3 other players.
+Welcome to the Card Casino Game. We have 3 mini games for you to play. You can play alone, with a partner, or with 3 other players.
 To start, every player will get $1000. Every game will have an initial wager that will be decided in every start of a game. 
 Every player can get more money with every win they get by playing the games.
 
@@ -56,7 +56,7 @@ If you win, you will receive the combined wager from all players. Remember, the 
 
 ---
 Group members:
-1. Song Chawoo, 3035977628
+1. Song Chanwoo, 3035977628
 2. Lukito Angeline Marcelle, 3036037322
 3. Garth Winston Patrick, 3036029715
 4. Tanujaya Clarence Marvin, 3035993933
