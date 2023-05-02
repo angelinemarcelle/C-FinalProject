@@ -30,7 +30,6 @@ Here's how to play:
   2. Each player will be shown their collection of cards, but keep it hidden from your opponent. You will then have the option to either keep your cards or swap them with random cards generated from the deck.
   3. If you choose to swap your cards, you will be given the option to choose how many and which cards to swap (1-5).
   4. After both players have dealt their cards, both hands are revealed to each other. The player with the higher value of cards will win.
-  5. You could exit the program by enter 'e' when the player's turn start.
 
 To calculate your score, use the following values:
   - Number cards represent their own numbers.
