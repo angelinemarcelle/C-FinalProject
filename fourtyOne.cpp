@@ -218,7 +218,7 @@ int Game::play() {
 int Game::run(){
   Game game;
   while (true) {
-      cout << "Welcome to the Exciting 4-Player Card Game!, ready (y/n)? ";
+      cout << "Welcome to the Exciting 4-Player Card Game!, ready (y/n)? " << endl;
       char reaction;
       cin >> reaction;
       if (reaction != 'y') {
