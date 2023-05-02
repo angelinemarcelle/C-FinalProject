@@ -1,16 +1,23 @@
 CFLAGS=-pedantic-errors -std=c++11
-SRC=cardMatch.cpp fourtyOne.cpp main.cpp switchCard.cpp
+SRC=cardMatch.cpp switchCard.cpp fourtyOne.cpp main.cpp
 OBJ=$(SRC:.cpp=.o)
+DEP=$(SRC:.cpp=.d)
 
 all: main
 
-main: cardmatch.o fourtyOne.o switchCard.o main.o
-	g++ $(CFLAGS) $(OBJ) -o main
+main:  cardMatch.o switchCard.o fourtyOne.o main.o
+	g++ $(CFLAGS) cardMatch.o switchCard.o fourtyOne.o main.o -o main
 
-%.o: %.cpp
-	g++ $(CFLAGS) $< -o $@
+cardMatch.o: cardMatch.cpp cardMatch.h
+	g++ $(CFLAGS) -c cardMatch.cpp
+
+switchCard.o: switchCard.cpp switchCard.h
+	g++ $(CFLAGS) -c switchCard.cpp
+
+fourtyOne.o: fourtyOne.cpp fourtyOne.h
+	g++ $(CFLAGS) -c fourtyOne.cpp
 
 clean:
-	rm -f main $(OBJ)
+	rm -f cardMatch.o switchCard.o fourtyOne.o main.o main
   
 .PHONY: clean
