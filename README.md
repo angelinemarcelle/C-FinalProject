@@ -1,10 +1,12 @@
-# ENGG1340FinalProject
-ENGG1340 C++ Final Project Group 9.
-
+## ENGG1340 Final Project - Group 9
+CARD CASINO 🃏💲
+---
 Welcome to the Card Casino Game. We have 3 mini games for you to play. You can play alone, with a partner, and with 3 other players.
 To start, every player will get $1000. Every game will have an initial wager that will be decided in every start of a game. 
 Every player can get more money with every win they get by playing the games.
 
+Card Match
+---
 Our first mini game is Card Match, a single player memory game. In this game, you will be challenged to memorize cards within a limited time frame.
 
 To play, follow these simple steps:
@@ -18,7 +20,8 @@ If you can successfully complete the game within the allotted time, you will win
 
 Get your mind ready and play to win more money!
 
-
+Switch Card
+---
 Our second mini game is Switch Card, a double player switching game of luck. In this game, two players will compete to get the highest possible value from a combination of 5 cards.
 
 Here's how to play:
@@ -34,7 +37,8 @@ To calculate your score, use the following values:
 
 If you win, you will receive all the wager from the other player. Since it's a double or nothing game, you'll need luck on your side!
 
-
+41
+---
 Our last game is 41, a multiplayer game that you can play with 4 players. In this game, you will be playing alongside 3 other players. The ultimate goal of the game is to get a score of 41 from a combination of 4 cards.
 
 Here's how to play:
