@@ -1,6 +1,9 @@
 #include <iostream>
+#include <ifstream>
+#include <ofstream>
 #include "cardmatch.h"
 #include <string>
+
 using namespace std;
 
 // Include the game functions here
@@ -32,11 +35,45 @@ int main() {
     // register player
     Player players[4]; 
     // Read in the names of the 4 players
-    for (int i = 0; i < 4; i++) {
-        cout << "Enter the name of player " << i+1 << ": ";
-        cin >> players[i].name;
-        players[i].money = 1000;
+    ifstream infile("gamedata.txt");
+    if (infile.is_open()) {
+        // Check if file is empty
+        infile.seekg(0, ios::end);
+        if (infile.tellg() == 0) {
+            // File is empty, prompt user to input data
+            cout << "No game data found. Please enter the player data:" << endl;
+            for (int i = 0; i < 4; i++) {
+                cout << "Enter the name of player " << i+1 << ": ";
+                cin >> players[i].name;
+                players[i].money = 1000;
+            }
+            // Save player data to file
+            ofstream outfile("gamedata.txt");
+            if (outfile.is_open()) {
+                for (int i = 0; i < 4; i++) {
+                    outfile << players[i].name << " " << players[i].money << endl;
+                }
+                outfile.close();
+            }
+            else {
+                cout << "Unable to open file." << endl;
+            }
+        }
+        else {
+            // File is not empty, read player data from file
+            infile.seekg(0, ios::beg);
+            for (int i = 0; i < 4; i++) {
+                infile >> players[i].name >> players[i].money;
+            }
+            infile.close();
+        }
     }
+    else {
+        cout << "Unable to open file." << endl;
+    }
+    // code to use player data
+    return 0;
+}
     // Print out the names of the 4 players
     cout << "All players' starting money: ";
     for (int i = 0; i < 4; i++) {
