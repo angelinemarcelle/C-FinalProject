@@ -125,13 +125,19 @@ int main() {
                 *players[player1].money -= wager;
                 save();
                 // Run the game 
-                bool win = playMemoryGame();
+                int result = playMemoryGame();
                 // Double the score if the player wins, or set it to 0 if they lose
-                if (win){
+                if (result == 3){
+                    *players[player1].money += 3 * wager;
+                    save()
+                    cout << "Congratulations! You won " <<"$ " << 3 * wager << endl;
+                } 
+                else if (result == 2){
                     *players[player1].money += 2 * wager;
                     save()
-                    cout << "Congratulations! You won " <<"$ " << 2 * wager << endl;
-                } else {
+                    cout << "Congratulations! You won " <<"$ " << 1 * wager << endl;
+                }
+                else {
                     cout << "Sorry, you lost your wager." << endl;
                 }
               }
@@ -158,16 +164,23 @@ int main() {
                 *players[player1].money -= wager;
                 *players[player2].money -= wager;
                 save();
+                int resultg2 = playCardMatchingGame();
                 // Determine the winner of the game
-                if (playCardMatchingGame()) { // player 1 wins
-                    players[player1].money += 2 * wager;
+                if (resultg2 == 1) { // player 1 wins
+                    *players[player1].money += 2 * wager;
                     cout << *players[player1].name << " wins " << 2 * wager << " points!" << endl;
                     save();
-                } else { // player 2 wins
-                    players[player2].money += 2 * wager;
+                } else if (resultg2 == 2){ 
+                    *players[player2].money += 2 * wager;
                     cout << *players[player2].name << " wins " << 2 * wager << " points!" << endl;
                     save();
                 }
+              else{ // Tie, return initial
+                    *players[player1].money +=  wager;
+                    *players[player2].money +=  wager;
+                    cout << "It's a tie, no one wins, no one loses!" << endl;
+                    save();
+              }
             }
             break;
 
