@@ -1,6 +1,6 @@
 #include "switchCard.h"
 
-using namespacestd;
+using namespace std;
 
 Switch::Switch(int numPlayers, int numCards)
     : numPlayers(numPlayers), numCards(numCards), deck(createDeck()) {
