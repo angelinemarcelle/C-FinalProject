@@ -5,20 +5,31 @@
 #include <ctime>
 #include <iostream>
 #include <vector>
-using namespace std;
 
-struct Cards {
-    string face;
-    string suit;
+class Switch {
+public:
+    Switch(int numPlayers, int numCards);
+    void play();
+
+private:
+    struct Card {
+        string face;
+        string suit;
+    };
+
+    vector<Card> createDeck();
+    void shuffleDeck();
+    void dealCards();
+    void printHand(const vector<Card>& hand);
+    int getCardValue(const Card& card);
+    void swapCards(vector<Card>& hand, int cardIndex);
+    int scoreHand(const vector<Card>& hand);
+
+    const int numPlayers;
+    const int numCards;
+    vector<Card> deck;
+    vector<vector<Card>> hands;
 };
-
-vector<Cards> createDeck();
-void shuffleDeck(vector<Cards>& deck);
-vector<vector<Cards> > dealCards(vector<Cards>& deck, int numPlayers, int numCards);
-void printHand(const vector<Cards>& hand);
-int getCardValue(const Cards& card);
-void swapCards(vector<Cards>& hand, vector<Cards>& deck, int cardIndex);
-int scoreHand(const vector<Cards>& hand);
 
 
 #endif
