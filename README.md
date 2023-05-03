@@ -16,8 +16,8 @@ To play, follow these simple steps:
   4. You could exit the program by enter 'e' when the player's turn start.
 
 If you can successfully complete the game within the allotted time, you will win a prize based on your performance.
-  - For the 4x4 board, if you finish in under 30 seconds, you will receive double your initial wager. If you finish in over 30 seconds, you will lose your initial wager.
-  - For the 6x6 board, you can win even more! If you finish in under 1 minute, you will receive three times your initial wager. If you finish in under 2 minutes but over 1 minute, you will receive double your initial wager. If you take over 2 minutes, you will lose your initial wager.
+  - For the 4x4 board, if you finish in under 120 seconds, you will receive double your initial wager. If you finish in over 120 seconds, you will lose your initial wager.
+  - For the 6x6 board, you can win even more! If you finish in under 3 minutes, you will receive three times your initial wager. If you finish in under 3 minutes but over 4 minute, you will receive double your initial wager. If you take over 4 minutes, you will lose your initial wager.
 
 Get your mind ready and play to win more money!
 
