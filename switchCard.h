@@ -5,6 +5,9 @@
 #include <ctime>
 #include <iostream>
 #include <vector>
+#include <random>
+
+using namespace std;
 
 class Switch {
 public:
@@ -30,6 +33,5 @@ private:
     vector<Card> deck;
     vector<vector<Card>> hands;
 };
-
 
 #endif
