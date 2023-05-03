@@ -1,4 +1,4 @@
-#include "fourtyOne.h"
+##include "fourtyOne.h"
 
 
 void Game::createDeck() {
@@ -106,14 +106,18 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
   char removeCard;
   cout << "Do you want to discard this drawn card? (y/n): ";
   cin >> removeCard;
-  if (removeCard == 'e'){
-    ::exit(0);
-  }
   if (removeCard == 'y') {
     cout << "The card has been removed." << endl;
     cout << "Updated hand: ";
     printHand(hand);
     printScore(hand);
+    char out;
+    cout << "Enter 'e' to change player's turn!" << endl;
+    cin >> out;
+    if (out == 'e'){
+      system("clear");
+    }
+    
     // Remove the card from the deck as well
     deck.push_back(newCard);
     sort(hand.begin(), hand.end(), [](Card a, Card b) {
@@ -133,7 +137,6 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
                                       : (b.face == "K" ? 13 : stoi(b.face))));
       return aValue < bValue;
     });
-    cout << endl << endl;
     return;
   }
 
@@ -168,7 +171,12 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
   cout << "Updated hand: ";
   printHand(hand);
   printScore(hand);
-  cout << endl << endl;
+  char out;
+  cout << "Enter 'e' to change player's turn!" << endl;
+  cin >> out;
+  if (out == 'e'){
+    system("clear");
+  }
 }
 
 bool Game::gameOver(vector<vector<Card>> &hands, vector<Card> &deck) {
@@ -203,26 +211,25 @@ int Game::play() {
 
   int currentPlayer = 0;
   while (!gameOver(hands, deck)) {
-    system("clear");
     cout << "Player " << currentPlayer + 1 << "'s turn:" << endl;
     cout << "----------------------------------------------------" << endl;
     takeCard(hands[currentPlayer], deck);
     currentPlayer = (currentPlayer + 1) % numPlayers;
   }
   int winner = getWinner(hands);
-  cout << "Player " << winner + 1 << " wins!" << endl;
-  
+
+
   return winner;
 }
 
 int Game::run(){
   Game game;
   while (true) {
-      cout << "Welcome to the Exciting 4-Player Card Game!, ready (y/n)? " << endl;
+      cout << "Welcome to the Exciting 4-Player Card Game!, ready (y/n)? ";
       char reaction;
       cin >> reaction;
       if (reaction != 'y') {
-          ::exit(0);
+          break;
         }
       else {
         game.play();
@@ -238,5 +245,7 @@ int game3() {
 
     Game game;
     game.run();
-    return 0;
+    int winner = game.play();
+    return winner;
 }
+
