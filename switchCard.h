@@ -31,7 +31,7 @@ private:
     const int numPlayers;
     const int numCards;
     vector<Card> deck;
-    vector<vector<Card>> hands;
+    vector<vector<Card> > hands;
 };
 
 #endif
