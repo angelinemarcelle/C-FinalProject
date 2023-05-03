@@ -36,6 +36,9 @@ Switch::Switch(int numPlayers, int numCards)
 }
 
 void Switch::play() {
+    deck = createDeck();
+    shuffleDeck();
+
     dealCards();
 
     for (int player = 0; player < numPlayers; ++player) {
