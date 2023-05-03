@@ -2,6 +2,40 @@
 
 using namespacestd;
 
+#include <algorithm>
+#include <ctime>
+#include <iostream>
+#include <vector>
+#include <random>
+
+using namespace std;
+
+class Switch {
+public:
+    Switch(int numPlayers, int numCards);
+    void play();
+
+private:
+    struct Card {
+        string face;
+        string suit;
+    };
+
+    vector<Card> createDeck();
+    void shuffleDeck();
+    void dealCards();
+    void printHand(const vector<Card>& hand);
+    int getCardValue(const Card& card);
+    void swapCards(vector<Card>& hand, int cardIndex);
+    int scoreHand(const vector<Card>& hand);
+
+    const int numPlayers;
+    const int numCards;
+    vector<Card> deck;
+    vector<vector<Card>> hands;
+};
+
+
 Switch::Switch(int numPlayers, int numCards)
     : numPlayers(numPlayers), numCards(numCards), deck(createDeck()) {
     shuffleDeck();
@@ -64,7 +98,9 @@ vector<Switch::Card> Switch::createDeck() {
 }
 
 void Switch::shuffleDeck() {
-    random_shuffle(deck.begin(), deck.end());
+    std::mt19937 rng;
+    rng.seed(std::time(0)); 
+    std::shuffle(deck.begin(), deck.end(), rng);  
 }
 
 void Switch::dealCards() {
