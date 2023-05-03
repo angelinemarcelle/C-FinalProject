@@ -1,4 +1,10 @@
-#include "main.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include "cardMatch.h"
+#include "switchCard.h"
+#include "fourtyOne.h"
 
 using namespace std;
 
@@ -7,16 +13,21 @@ int game1(); // 1 player game
 int game2(); // 2 player game
 int game3(); // 4 player game
 
+// Players' database
+struct Player {
+  string name; // player's name
+  int money; // player's score
+};
 
 ifstream infile;
+ofstream outfile;
 
 // Save ingame data
-void save(Player* players){
-    ofstream outfile;
+void save(Player* players) {
     outfile.open("gameData.txt");
     if (outfile.is_open()) {
         for (int i = 0; i < 4; i++) {
-            outfile << players[i].name << players[i].money << endl;
+            outfile << players[i].name << " " << players[i].money << endl;
         }
         outfile.close();
     }
@@ -25,10 +36,28 @@ void save(Player* players){
     }
 }
 
-int main() {
-    char _; // variable for entering
-    int choice;
+// Clear ingame data
+void clear() {
+    ofstream file("gameData.txt", ofstream::out | ofstream::trunc);
+    file.close();
+}
 
+// Load game data
+void load(Player* players) {
+    ifstream infile("gameData.txt");
+    if (infile.is_open()) {
+        for (int i = 0; i < 4; i++) {
+            infile >> players[i].name >> players[i].money;
+        }
+        infile.close();
+    }
+    else {
+        cout << "Unable to open file." << endl;
+    }
+}
+
+int main() {
+    int choice;
     // title screen
     cout << "------------------------------- :Welcome to: ---------------------------------" << endl;
     cout << "░█████╗░░█████╗░██████╗░██████╗░  ░█████╗░░█████╗░░██████╗██╗███╗░░██╗░█████╗░" << endl;
@@ -44,16 +73,16 @@ int main() {
     //Player* players;
     //players = new Player[4];
     Player players[4];
-    ifstream infile;
-    infile.open("gameData.txt");
-    infile.close();
-    infile.open("gameData.txt");
+    //infile.open("gameData.txt");
+    //infile.close();
+    //infile.open("gameData.txt");
     // Read in the names of the 4 players
     if (infile.fail()) {
         cout << "Unable to open file." << endl;
         exit(0);
     }
     else{
+        infile.open("gameData.txt");
         if (infile.peek() == ifstream::traits_type::eof()) {
             // File is empty register user data first
             cout << "No previous game data found. Please enter the player data first:" << endl;
@@ -65,25 +94,11 @@ int main() {
                 players[i].money = 1000;
             }
             // Save player data to file
-            ofstream outfile;
-            outfile.open("gameData.txt");
-            if (outfile.fail()) {
-                cout << "Unable to open file." << endl;
-            }
-            else{
-                for (int i = 0; i < 4; i++) {
-                    outfile << players[i].name << players[i].money << endl;
-                }
-                outfile.close();
-            }
+            save(players);
         }
         else {
             // Read player data from file
-            infile.seekg(0, ios::beg);
-            for (int i = 0; i < 4; i++) {
-                infile >> players[i].name >> players[i].money;
-            }
-            infile.close();
+            load(players);
         }
     }
 
@@ -152,7 +167,7 @@ int main() {
         case 2:
             // start game 2
             int player2;
-            cout << "Who are playing? (Enter player numbers): ";
+            cout << "Who are playing? (Enter player numbers, example 1 2): "; 
             cin >> player1 >> player2;
             player1 -= 1; // Adjusting the index to be 0-based
             player2 -= 1; // Adjusting the index to be 0-based
@@ -174,11 +189,11 @@ int main() {
                 // Determine the winner of the game
                 if (resultg2 == 1) { // player 1 wins
                     players[player1].money += 2 * wager;
-                    cout << players[player1].name << " wins " << 2 * wager << " points!" << endl;
+                    cout << players[player1].name << " wins " << "$" << 2 * wager << endl;
                     save(players);
                 } else if (resultg2 == 2){ 
                     players[player2].money += 2 * wager;
-                    cout << players[player2].name << " wins " << 2 * wager << " points!" << endl;
+                    cout << players[player2].name << " wins " << "$" << 2 * wager << endl;
                     save(players);
                     continue;
                 }
@@ -222,24 +237,37 @@ int main() {
             // Award them all the money wagered
             int totalWinnings = 4 * wager;
             players[winningPlayerIndex].money += totalWinnings;
-            cout << players[winningPlayerIndex].name << " wins " << totalWinnings << " points!" << endl;
+            cout << players[winningPlayerIndex].name << " wins $" << totalWinnings << " !" << endl;
             save(players);
             break;
         }
                 
         case 4:
             // view players' money
-                cout << "Players' Money:" << endl;
-                for (int i = 0; i < 4; i++) {
-                    cout << players[i].name << ": " << "$" << players[i].money << endl;
-                }
-                cout << endl << endl;
-                break;
+            cout << "Players' Money:" << endl;
+            for (int i = 0; i < 4; i++) {
+                cout << players[i].name << ": " << "$" << players[i].money << endl;
+            }
+            cout << endl << endl;
+            break;
           
         case 5: 
-                save(players);
-                exit(0);
-                break;
+            while (true){
+                cout << "Would you like to save all game prgoress? (y/n)" << endl;
+                char yn;
+                cin >> yn;
+                if (yn == 'y'){
+                    save(players);
+                    exit(0);
+                    break;
+                } else if (yn == 'n'){
+                    clear();
+                    exit(0);
+                    break;
+                } else {
+                    cout << "Invalid input, please choose y or n!" << endl;
+                }
+            }          
             
         default:
             cout << "Invalid choice. Please choose a number between 1-5." << endl;
