@@ -106,7 +106,7 @@ int Switch::scoreHand(const vector<Card>& hand) {
     return score;
 }
 
-int main() {
+int game2() {
     const int numPlayers = 2;
     const int numCards = 5;
 
