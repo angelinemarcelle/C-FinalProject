@@ -1,9 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include "cardMatch.h"
-#include "switchCard.h"
-#include "fourtyOne.h"
+#include "main.h"
 
 using namespace std;
 
@@ -12,11 +7,6 @@ int game1(); // 1 player game
 int game2(); // 2 player game
 int game3(); // 4 player game
 
-// Players' database
-struct Player {
-  string name; // player's name
-  int money; // player's score
-};
 
 ifstream infile;
 
