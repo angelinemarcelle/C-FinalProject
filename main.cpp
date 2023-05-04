@@ -111,6 +111,7 @@ int main() {
     cout << endl << endl;
     cout << "Press enter to let the game begin!" << endl;
     cin.ignore();
+    system("clear");
   
     while (true) {
         // main menu
@@ -122,7 +123,7 @@ int main() {
         cout << "Enter your choice (1-5) : ";
         cin >> choice;
         cout << endl << endl;
-
+        system("clear");
         switch (choice) {
         case 1:
             // start game 1
@@ -167,10 +168,15 @@ int main() {
         case 2:
             // start game 2
             int player2;
-            cout << "Who are playing? (Enter player numbers, example 1 2): "; 
+            cout << "Who are playing? (Enter player numbers): "; 
             cin >> player1 >> player2;
             player1 -= 1; // Adjusting the index to be 0-based
             player2 -= 1; // Adjusting the index to be 0-based
+            if ( player1 > 3 || player2 > 3 || player1 < 0 || player2 < 0 ) {
+                cout << "Sorry, you have entered an invalid player number." << endl;
+                system("clear");
+                continue;
+            }
             
             // Ask the players to wager their scores
             cout << "Enter the wager for both players: ";
@@ -180,6 +186,7 @@ int main() {
             if (players[player1].money < wager || players[player2].money < wager) {
                 cout << "Sorry, one or both players don't have enough money to make that wager." << endl;
                 cout << endl << endl;
+
             } else {
                 // Subtract the wager from the players' scores
                 players[player1].money -= wager;
@@ -200,7 +207,7 @@ int main() {
               else{ // Tie, return initial
                     players[player1].money +=  wager;
                     players[player2].money +=  wager;
-                    cout << "It's a tie, no one wins, no one loses!" << endl;
+                    
                     save(players);
                     continue;
               }
@@ -224,6 +231,10 @@ int main() {
             
             if (!allPlayersHaveEnoughMoney) {
                 cout << "Sorry, one or more players don't have enough money to make that wager." << endl;
+                cout << endl << endl;
+                system("clear");
+                continue;
+
             } else {
                 // Subtract the wager from all players' scores
                 for (int i = 0; i < numPlayers; i++) {
@@ -272,11 +283,11 @@ int main() {
         default:
             cout << "Invalid choice. Please choose a number between 1-5." << endl;
             cout << endl << endl;
+            system("clear");
             break;
 
         }
     }
     return 0;
 }
-
 
