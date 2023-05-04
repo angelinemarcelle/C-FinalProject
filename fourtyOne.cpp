@@ -106,7 +106,10 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
   char removeCard;
   cout << "Do you want to discard this drawn card? (y/n): ";
   cin >> removeCard;
-  if (removeCard == 'y') {
+  if (removeCard == 'e'){
+    ::exit(0);
+  }
+  else if (removeCard == 'y') {
     cout << "The card has been removed." << endl;
     cout << "Updated hand: ";
     printHand(hand);
@@ -225,15 +228,20 @@ int Game::play() {
 int Game::run(){
   Game game;
   while (true) {
+      
       cout << "Welcome to the Exciting 4-Player Card Game!, ready (y/n)? ";
       char reaction;
       cin >> reaction;
-      if (reaction != 'y') {
-          break;
-        }
-      else {
+      if (reaction == 'n') {
+        ::exit(0);
+      }
+      else if (reaction =='y'){
         game.play();
       }
+      else {
+        ::exit(0);
+      }
+      
       return 0;
     }
   return 0;
