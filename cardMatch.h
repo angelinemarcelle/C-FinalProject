@@ -20,10 +20,11 @@ public:
     static bool first_turn;
     vector<vector<string> > board;
     vector<vector<bool> > revealed;
-    void play();
+    int play();
     void print(bool show_all = false);
     vector<vector<string> > createBoard(int board_size);
-    int calculateweight(int time);
+    int calculateweight(int time, int size);
 };
 
 #endif
+
