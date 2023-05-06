@@ -115,8 +115,8 @@ The project is divided into several parts, each with its respective header file:
 ### 4. List of non-standard C/C++ libraries
 
 Non-standard libraries needed for this project:
-1. **#include <chrono>**
-2. **#include <ctime>**
+1. chrono
+2. ctime
   
 ---
   
