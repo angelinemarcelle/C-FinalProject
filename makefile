@@ -29,9 +29,9 @@ switchCard.o: switchCard.cpp switchCard.h
 fourtyOne.o: fourtyOne.cpp fourtyOne.h
 	g++ $(CFLAGS) -c fourtyOne.cpp
 
-# Clean target: remove object files, dependency files, and 'main' executable
+# Clean target
 clean:
 	rm -f cardMatch.o switchCard.o fourtyOne.o main.o main
 
-# Declare 'clean' as a phony target to prevent conflicts with a file named 'clean'
+# Declare 'clean' as a phony target 
 .PHONY: clean
