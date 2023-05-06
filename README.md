@@ -57,6 +57,41 @@ To calculate your score, use the following values:
 If you win, you will receive the combined wager from all players. Remember, the winner takes it all, so play and strategize well!
 
 ---
+
+#Coding Requirements
+
+3.4. File input/output (e.g., for loading/saving game status)
+
+Our Game Casino project features a leaderboard for all players, necessitating file input/output capabilities. We have incorporated a gameData.txt file, which resets whenever a player chooses to reset their funds or introduces a new group of players for gameplay.
+
+3.5. Program codes in multiple files
+
+The project is divided into several parts, each with its respective header file:
+1. main.cpp: 
+This file acts as the main menu, compiling all mini-games and implementing a uniform casino feature for all players. It manages players' current money, pricing algorithms, and more.
+2. cardMatch.cpp: 
+This file contains the code for the first single-player mini-game, which involves randomly generating numbers displayed on the screen for a short period. Serving as a simple memorization game, players who win receive prize money as specified in main.cpp.
+3. switchCard.cpp: 
+This file holds the code for the second mini-game, which also uses random generation. It allows players to decide whether they want to change their hand of cards. Outcomes depend heavily on luck due to the random generation process.
+4. fourtyOne.cpp: 
+This file contains the code for the third game, designed for 4 players. In this game, players receive a random set of numbers and symbols representing cards. To win, they must create a combination of cards that equals 41.
+5. gameData.txt: 
+This text file serves as the player leaderboard, storing player names and remaining money. The gameData.txt file can be reset and is periodically read by the main code throughout the game.
+
+#4. List of non-standard C/C++ libraries
+  #include <chrono> and #include <ctime> libraries are needed for this project
+
+
+5. Compilation technique:
+To compile the game, use the following command:
+**make game**
+To run the game, using the following command:
+**./main**
+To remove the compiled main.cpp, use the following command:
+**make clean**
+  
+---
+  
 Group members:
 1. Song Chanwoo, 3035977628
 2. Lukito Angeline Marcelle, 3036037322
