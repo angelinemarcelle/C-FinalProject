@@ -1,9 +1,9 @@
 #include "fourtyOne.h"
 
-
+//function to generate a full deck of 52 cards
 void Game::createDeck() {
-    for (int s = 0; s < 4; s++) {
-        for (int v = 2; v <= 14; v++) {
+    for (int s = 0; s < 4; s++) { //loop through the 4 suits
+        for (int v = 2; v <= 14; v++) { //loop through the card numbers
             Card c;
             if (v == 11)
                 c.face = "J";
@@ -14,7 +14,7 @@ void Game::createDeck() {
             else if (v == 14)
                 c.face = "A";
             else
-                c.face = to_string(v);
+                c.face = to_string(v); //store the card number
             if (s == 0)
                 c.suit = "♥";
             else if (s == 1)
@@ -23,21 +23,23 @@ void Game::createDeck() {
                 c.suit = "♠";
             else
                 c.suit = "♣";
-            deck.push_back(c);
+            deck.push_back(c); //add the card to the deck
         }
     }
 }
 
+//function to deal card from deck to the player's hand
 void Game::deal(vector<Card> &hand, vector<Card> &deck, int numCards) {
   random_device rd;  // obtain a random seed from the system
   mt19937 gen(rd()); // seed the generator
   for (int i = 0; i < numCards; i++) {
     uniform_int_distribution<> distrib(0, deck.size() - 1);
     int randIndex = distrib(gen);
-    hand.push_back(deck[randIndex]);
-    deck[randIndex] = deck.back();
-    deck.pop_back();
+    hand.push_back(deck[randIndex]); //give card to player
+    deck[randIndex] = deck.back(); //replace the card given with the last card
+    deck.pop_back(); //remove last card
   }
+  //sort player's card based on the card's number
   sort(hand.begin(), hand.end(), [](Card a, Card b) {
     int aValue =
         a.face == "A"
@@ -57,6 +59,7 @@ void Game::deal(vector<Card> &hand, vector<Card> &deck, int numCards) {
   });
 }
 
+//function to declare the value of the card
 int Game::getCardValue(Card c) {
   if (c.face == "A")
     return 11;
@@ -66,6 +69,7 @@ int Game::getCardValue(Card c) {
     return stoi(c.face);
 }
 
+//function to calculates value of card in the player's hand
 int Game::getHandValue(const vector<Card> &hand) {
   int value = 0;
   for (const Card &c : hand) {
@@ -74,6 +78,7 @@ int Game::getHandValue(const vector<Card> &hand) {
   return value;
 }
 
+//function to print the card in player's hand
 void Game::printHand(const vector<Card> &hand) {
   for (const auto &card : hand) {
     cout << card.face << card.suit << " ";
@@ -82,15 +87,17 @@ void Game::printHand(const vector<Card> &hand) {
   cout << endl;
 }
 
+//function to print the total score that been counted in getHandValue()
 void Game::printScore(const vector<Card> &hand) {
     int handValue = getHandValue(hand);
     cout << "Current score: " << handValue << endl;
 }
 
+//function to update the screen with every changes
 void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
   cout << "Your hand: ";
-  printHand(hand);
-  printScore(hand);
+  printHand(hand); //print hand
+  printScore(hand); //print value in hand
   cout << "----------------------------------------------------" << endl;
   cout << "New card: ";
   random_device rd;  // obtain a random seed from the system
@@ -105,11 +112,11 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
   int discardIdx;
   char removeCard;
   cout << "Do you want to discard this drawn card? (y/n): ";
-  cin >> removeCard;
-  if (removeCard == 'e'){
+  cin >> removeCard; //input if player want to remove any card or not
+  if (removeCard == 'e'){ //if the player wants to exit the game
     ::exit(0);
   }
-  else if (removeCard == 'y') {
+  else if (removeCard == 'y') { //give player card
     cout << "The card has been removed." << endl;
     cout << "Updated hand: ";
     printHand(hand);
@@ -117,7 +124,7 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
     char out;
     cout << "Enter 'e' to change player's turn!" << endl;
     cin >> out;
-    if (out == 'e'){
+    if (out == 'e'){ //input to clear the screen
       system("clear");
     }
     
@@ -144,14 +151,14 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
   }
 
   cout << "Choose a card index to discard (1-4) ";
-  cin >> discardIdx;
+  cin >> discardIdx; //input of the card index to remove
   Card discardedCard = hand[discardIdx-1];
   hand[discardIdx-1] = newCard;
   // Remove the card from the deck as well
   deck.push_back(discardedCard);
 
   cout << "Discarded card: ";
-  printHand(vector<Card>{discardedCard});
+  printHand(vector<Card>{discardedCard}); //print the updated hand
 
   sort(hand.begin(), hand.end(), [](Card a, Card b) {
     int aValue =
@@ -182,38 +189,41 @@ void Game::takeCard(vector<Card> &hand, vector<Card> &deck) {
   }
 }
 
+//function to check if the game is over
 bool Game::gameOver(vector<vector<Card>> &hands, vector<Card> &deck) {
   for (auto hand : hands) {
-    if (getHandValue(hand) == 41)
+    if (getHandValue(hand) == 41) //winning condition
       return true;
   }
-  return deck.empty();
+  return deck.empty(); //deck is empty = game over
 }
 
+//function to get the winner
 int Game::getWinner(vector<vector<Card>> &hands) {
   int winnerIdx = -1;
   int highest = 0;
   for (int i = 0; i < hands.size(); i++) {
     int score = getHandValue(hands[i]);
-    if (score > highest && score <= 41) {
+    if (score > highest && score <= 41) { //winning condition
       highest = score;
-      winnerIdx = i;
+      winnerIdx = i; //set the winner index
     }
   }
-  return winnerIdx;
+  return winnerIdx; //return the index of the winner
 }
 
+//function to play the whole game
 int Game::play() {
     const int numPlayers = 4;
     char reaction;
-    createDeck();
-    vector<vector<Card>> hands(numPlayers);
+    createDeck(); //create a whole deck
+    vector<vector<Card>> hands(numPlayers); 
     for (auto &hand : hands) {
-        deal(hand, deck, 4);
+        deal(hand, deck, 4); //give player a total of 4 cards
     }
 
   int currentPlayer = 0;
-  while (!gameOver(hands, deck)) {
+  while (!gameOver(hands, deck)) { //while the game is not over
     cout << "Player " << currentPlayer + 1 << "'s turn:" << endl;
     cout << "----------------------------------------------------" << endl;
     takeCard(hands[currentPlayer], deck);
@@ -225,6 +235,8 @@ int Game::play() {
   return winner;
 }
 
+
+//function for the opening, if the player want to play this game or not
 int Game::run(){
   Game game;
   while (true) {
@@ -247,7 +259,7 @@ int Game::run(){
   return 0;
 }
 
-
+//the main function to run the whole code's program
 int game3() {
     srand(time(nullptr));
 
