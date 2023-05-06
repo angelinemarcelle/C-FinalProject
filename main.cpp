@@ -1,3 +1,4 @@
+// Libraries
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -19,6 +20,7 @@ struct Player {
   int money; // player's score
 };
 
+// Declare ifstream ofstream
 ifstream infile;
 ofstream outfile;
 
@@ -57,7 +59,7 @@ void load(Player* players) {
 }
 
 int main() {
-    int choice;
+    int choice; // player's choise
     // title screen
     cout << "------------------------------- :Welcome to: ---------------------------------" << endl;
     cout << "░█████╗░░█████╗░██████╗░██████╗░  ░█████╗░░█████╗░░██████╗██╗███╗░░██╗░█████╗░" << endl;
@@ -69,13 +71,9 @@ int main() {
     cout << "------------------------------------------------------------------------------" << endl;
     cout << "Press enter to continue!" << endl;
     cin.ignore();
-    // register player
-    //Player* players;
-    //players = new Player[4];
+    // Register player
     Player players[4];
-    //infile.open("gameData.txt");
-    //infile.close();
-    //infile.open("gameData.txt");
+
     // Read in the names of the 4 players
     if (infile.fail()) {
         cout << "Unable to open file." << endl;
@@ -114,7 +112,7 @@ int main() {
     system("clear");
   
     while (true) {
-        // main menu
+        // Main menu
         cout << "1. Play single player (Card Match) " << endl;
         cout << "2. Play two player (Switch Card)" << endl;
         cout << "3. Play multiplayer (41): " << endl;
@@ -126,7 +124,7 @@ int main() {
         system("clear");
         switch (choice) {
         case 1:
-            // start game 1
+            // Start game 1
             int player1;
             cout << "Who is playing? (Enter player number): ";
             cin >> player1;
@@ -166,7 +164,7 @@ int main() {
             break;
             
         case 2:
-            // start game 2
+            // Start game 2
             int player2;
             cout << "Who are playing? (Enter player numbers): "; 
             cin >> player1 >> player2;
@@ -204,7 +202,7 @@ int main() {
                     save(players);
                     continue;
                 }
-              else{ // Tie, return initial
+              else{ // Tie, return initial money
                     players[player1].money +=  wager;
                     players[player2].money +=  wager;
                     
@@ -216,7 +214,7 @@ int main() {
             break;
 
         case 3: {
-        // start game 3
+        // Start game 3
             int numPlayers = 4;
             cout << "Enter the wager for all players: ";
             cin >> wager;
@@ -243,8 +241,10 @@ int main() {
                 save(players);
             }
             cout << endl << endl;
+          
             // Play the game 
             int winningPlayerIndex = game3();
+          
             // Award them all the money wagered
             int totalWinnings = 4 * wager;
             players[winningPlayerIndex].money += totalWinnings;
@@ -254,7 +254,7 @@ int main() {
         }
                 
         case 4:
-            // view players' money
+            // View players' money
             cout << "Players' Money:" << endl;
             for (int i = 0; i < 4; i++) {
                 cout << players[i].name << ": " << "$" << players[i].money << endl;
@@ -263,6 +263,7 @@ int main() {
             break;
           
         case 5: 
+            // Exit game
             while (true){
                 cout << "Would you like to save all game prgoress? (y/n)" << endl;
                 char yn;
@@ -281,6 +282,7 @@ int main() {
             }          
             
         default:
+            // Invalid input
             cout << "Invalid choice. Please choose a number between 1-5." << endl;
             cout << endl << endl;
             system("clear");
