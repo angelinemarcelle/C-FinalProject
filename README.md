@@ -124,7 +124,7 @@ Non-standard libraries needed for this project:
   
 To compile the game, use the following command:
 
-**make game**
+**make main**
   
 To run the game, using the following command:
   
