@@ -58,31 +58,61 @@ If you win, you will receive the combined wager from all players. Remember, the 
 
 ---
 
-Coding Requirements
+## Coding Requirements
 
-**3.4. File input/output (e.g., for loading/saving game status)**
+### 3.1. Generation of random game sets or events
+
+In cardMatch.cpp, shuffle() function is used from the algorithm library and an expression that creates an instance of the mt19937 random number generator engine is used to make sure every new game the elements are randomly ordered. This applies to both hidden values and shown values (there are two boards, where one is just a number that hides the true values such as ‘A’). Also, chrono library is also utilized to record player’s game time to determine whether a user can double their wager as the game. Libraries like <iomanip> and <thread> to make the texts aligned and to make the screen frozen for a while to make sure the game is enjoyable. 
+
+In fourtyOne.cpp, a function called deal() and takeCard() is used to give a random card from the deck to the player’s hand. The function algorithm is similar with shuffle() function in cardMatch.cpp. Similarly with the 2 programs above, switchCard.cpp uses randomization in the function called shuffleDeck(), this function is used to ensure a different shuffling sequence of the card deck each time the program is run. 
+
+---
+  
+### 3.2. Data structures for storing game status
+  
+In main.cpp, a Player struct is used to represent the player’s data, including their name stored as a string and their money stored as an integer. As the games are player and wagers are won or lost, individual player’s money are adjusted accordingly and saved into gameData.txt for storing the data. This data can then be loaded when starting another session.
+
+In switchCard.cpp, a Card struct represents individual cards, and vectors are used for players' hands, all players' hands, and the deck. The Switch class manages the game logic, including deck generation, shuffling, dealing hands, card swapping, score calculation, and determining the winner. 
+
+In the fourtyOne.cpp, a Card struct is used to represent individual cards with face value and suit attributes. Vectors are employed to store players' hands (vector<Card>) and all players' hands (vector<vector<Card>>). The deck is represented by a vector<Card>. As the game progresses, cards are dealt, drawn, and discarded, with the game ending when a player reaches a 41 hand value or the deck is depleted. The vector data structures provide efficient, ordered storage, while the Game class handles game logic, managing data structures for smooth gameplay.
+
+In cardMatch.cpp, vectors are also the primary data structure employed. 2D vectors containing bool, integers, and strings are utilized to create the game board and implement the play function. Both applications demonstrate the versatility and efficiency of vectors in managing ordered data and facilitating various game mechanics.
+
+---
+  
+### 3.3. Dynamic memory management 
+  
+In the switchCard.cpp, switch class effectively utilizes dynamic memory management to create a scalable and flexible game design. Memory is allocated dynamically for the hands vector of vectors and the deck vector, allowing the game to accommodate any number of players and hand sizes without rewriting the game logic for each combination. By leveraging C++'s dynamic memory allocation features, the Switch class remains clean, scalable, and abstracted from specific numbers of players or hand sizes. This demonstrates the importance of dynamic memory management as a key tool for creating reusable, efficient, and intuitive class designs.
+
+The fourtyOne.cpp uses std::vector, which handles dynamic memory management internally. For example, in the createDeck() method, a vector<Card> called deck is populated with 52 Card objects. As more Cards are added, deck will automatically resize its internal buffer to accommodate them.
+
+The cardMatch.cpp also uses vector, which handles the dynamic memory management. This saves the elements of the board including bool and strings placed on the board. 
+
+---
+  
+### 3.4. File input/output
 
 Our Game Casino project features a leaderboard for all players, necessitating file input/output capabilities. We have incorporated a gameData.txt file, which resets whenever a player chooses to reset their funds or introduces a new group of players for gameplay.
 
+---
 
-**3.5. Program codes in multiple files**
+### 3.5. Program codes in multiple files
 
 The project is divided into several parts, each with its respective header file:
 
-1. main.cpp: 
-  This file acts as the main menu, compiling all mini-games and implementing a uniform casino feature for all players. It manages players' current money,  pricing algorithms, and more.
-2. cardMatch.cpp: 
-  This file contains the code for the first single-player mini-game, which involves randomly generating numbers displayed on the screen for a short period. Serving as a simple memorization game, players who win receive prize money as specified in main.cpp.
-3. switchCard.cpp: 
-  This file holds the code for the second mini-game, which also uses random generation. It allows players to decide whether they want to change their hand of cards. Outcomes depend heavily on luck due to the random generation process.
-4. fourtyOne.cpp: 
-  This file contains the code for the third game, designed for 4 players. In this game, players receive a random set of numbers and symbols representing cards. To win, they must create a combination of cards that equals 41.
-5. gameData.txt: 
-  This text file serves as the player leaderboard, storing player names and remaining money. The gameData.txt file can be reset and is periodically read by the main code throughout the game.
+1. **main.cpp**: This file acts as the main menu, compiling all mini-games and implementing a uniform casino feature for all players. It manages players' current money,  pricing algorithms, and more.
+  
+2. **cardMatch.cpp**: This file contains the code for the first single-player mini-game, which involves randomly generating numbers displayed on the screen for a short period. Serving as a simple memorization game, players who win receive prize money as specified in main.cpp.
+  
+3. **switchCard.cpp**: This file holds the code for the second mini-game, which also uses random generation. It allows players to decide whether they want to change their hand of cards. Outcomes depend heavily on luck due to the random generation process.
+  
+4. **fourtyOne.cpp**: This file contains the code for the third game, designed for 4 players. In this game, players receive a random set of numbers and symbols representing cards. To win, they must create a combination of cards that equals 41.
+  
+5. **gameData.txt**: This text file serves as the player leaderboard, storing player names and remaining money. The gameData.txt file can be reset and is periodically read by the main code throughout the game.
 
 ---
 
-**4. List of non-standard C/C++ libraries**
+### 4. List of non-standard C/C++ libraries
 
 Non-standard libraries needed for this project:
 1. #include <chrono> 
@@ -90,7 +120,7 @@ Non-standard libraries needed for this project:
   
 ---
   
-*5. Compilation technique:*
+### 5. Compilation technique:
   
 To compile the game, use the following command:
 
